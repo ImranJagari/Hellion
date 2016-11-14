@@ -8,8 +8,7 @@ We choose to use the [Ether.Network][ethernetwork] because it provides a clients
 
 ## Details
 
-Language: `C#`
-
+- Language: `C#`
 - Framework target : `.NET Core 1.0`
 - Application type: `Console`
 - Database type : `MySQL`
