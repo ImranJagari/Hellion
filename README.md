@@ -9,12 +9,17 @@ We choose to use the [Ether.Network][ethernetwork] because it provides a clients
 ## Details
 
 Language: `C#`
+
 Framework target : `.NET Framework 4.5`
+
 Application type: `Console`
+
 Database type : `MySQL`
+
 External libraries used:
-	- [Ether.Network][ethernetwork]
-	- EntityFramework
+
+- [Ether.Network][ethernetwork]
+- EntityFramework
 
 ## Project architecture
 
