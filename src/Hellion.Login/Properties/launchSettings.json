@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Hellion.Login": {
+      "commandName": "Project",
+      "workingDirectory": "../../bin"
+    }
+  }
+}

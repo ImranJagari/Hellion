@@ -10,15 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.ISC", "src\Hellion.ISC\Hellion.ISC.xproj", "{5C2B8936-CE01-406F-AD00-EA64096A40F0}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.Core", "src\Hellion.Core\Hellion.Core.xproj", "{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.ISC", "src\Hellion.ISC\Hellion.ISC.xproj", "{5C2B8936-CE01-406F-AD00-EA64096A40F0}"
+EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.Login", "src\Hellion.Login\Hellion.Login.xproj", "{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.Cluster", "src\Hellion.Cluster\Hellion.Cluster.xproj", "{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.World", "src\Hellion.World\Hellion.World.xproj", "{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,35 +22,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2B8936-CE01-406F-AD00-EA64096A40F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5C2B8936-CE01-406F-AD00-EA64096A40F0} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
+		{5C2B8936-CE01-406F-AD00-EA64096A40F0} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
-		{DD0B98EF-022F-4F5A-A8B6-B99AD373EAD0} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
-		{D8F7568F-D72A-4B18-B0D9-3DDE40CA1F33} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
 	EndGlobalSection
 EndGlobal
