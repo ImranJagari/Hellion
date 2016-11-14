@@ -10,16 +10,13 @@ We choose to use the [Ether.Network][ethernetwork] because it provides a clients
 
 Language: `C#`
 
-Framework target : `.NET Framework 4.5`
-
+Framework target : `.NET Core 1.0`
 Application type: `Console`
-
 Database type : `MySQL`
-
 External libraries used:
 
 - [Ether.Network][ethernetwork]
-- EntityFramework
+- EntityFrameworkCore
 
 ## Project architecture
 
