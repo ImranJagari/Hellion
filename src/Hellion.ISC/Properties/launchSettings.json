@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Hellion.Login": {
+    "Hellion.ISC": {
       "commandName": "Project",
       "workingDirectory": "../../binary"
     }
