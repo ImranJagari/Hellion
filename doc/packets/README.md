@@ -17,7 +17,7 @@ The packets documentation is structured in two parts:
 - [Cluster Packets][cluster]
 - [World Packets][world]
 
-[isc]: /ISC.md
-[login]: /Login.md
-[cluster]: /Cluster.md
-[world]: /World.md
+[isc]: /doc/packets/ISC.md
+[login]: /doc/packets/Login.md
+[cluster]: /doc/packets/Cluster.md
+[world]: /doc/packets/World.md

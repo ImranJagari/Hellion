@@ -10,6 +10,9 @@ using System.IO;
 
 namespace Hellion.Login
 {
+    /// <summary>
+    /// Hellion LoginServer implementation.
+    /// </summary>
     public sealed class LoginServer : NetServer<Client>
     {
         private const string LoginConfigurationFile = "config/login.json";
@@ -151,7 +154,7 @@ namespace Hellion.Login
         private void ConnectToISC()
         {
             Log.Info("Connecting to Inter-Server...");
-
+            // TODO
             Log.Done("Connected to Inter-Server!");
         }
     }

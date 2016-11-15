@@ -1,4 +1,6 @@
 ﻿using Ether.Network.Packets;
+using Hellion.Core.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -39,6 +41,29 @@ namespace Hellion.Core.Network
         public FFPacket(byte[] buffer)
             : base(buffer)
         {
+        }
+
+        /// <summary>
+        /// Write packet header.
+        /// </summary>
+        /// <param name="header">FFPacket header</param>
+        public void WriteHeader(object header)
+        {
+            this.Write((int)header);
+        }
+
+        /// <summary>
+        /// Indicates if the packet of type T is unknown or just not implemented.
+        /// </summary>
+        /// <typeparam name="T">enum: Headers type</typeparam>
+        /// <param name="header">Header number</param>
+        /// <param name="digits">Digit numbers to display</param>
+        public static void UnknowPacket<T>(int header, int digits)
+        {
+            if (Enum.IsDefined(typeof(T), header))
+                Log.Warning("Unimplemented packet {0}", Enum.GetName(typeof(T), header));
+            else
+                Log.Warning("Unknow packet 0x{0}", header.ToString("X" + digits));
         }
 
         /// <summary>
