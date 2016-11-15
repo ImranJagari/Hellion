@@ -18,6 +18,17 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.ISC", "src\Hellion.
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.Login", "src\Hellion.Login\Hellion.Login.xproj", "{645132CF-3F18-4DAD-9FC5-77CDD31B3A72}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{B4F7502A-8F35-4D1D-A70B-7F4639CF957A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packets", "packets", "{8CF33639-BFEA-4200-BD4A-A8F4BB790B3D}"
+	ProjectSection(SolutionItems) = preProject
+		doc\packets\Cluster.md = doc\packets\Cluster.md
+		doc\packets\ISC.md = doc\packets\ISC.md
+		doc\packets\Login.md = doc\packets\Login.md
+		doc\packets\README.md = doc\packets\README.md
+		doc\packets\World.md = doc\packets\World.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +55,6 @@ Global
 		{9291EFE5-7E3A-476F-B1F3-F7CB5CBC6DF1} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
 		{5C2B8936-CE01-406F-AD00-EA64096A40F0} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
 		{645132CF-3F18-4DAD-9FC5-77CDD31B3A72} = {4A762668-BB7D-4D7F-983C-921CD39DE66C}
+		{8CF33639-BFEA-4200-BD4A-A8F4BB790B3D} = {B4F7502A-8F35-4D1D-A70B-7F4639CF957A}
 	EndGlobalSection
 EndGlobal
