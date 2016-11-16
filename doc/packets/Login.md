@@ -2,13 +2,21 @@
 
 ## Incoming Packets
 
-Packet structure test:
+### Login Request
 
 ```c#
-[int] number;
-[string] text;
-for (int i = 0; i < count; ++i)
-	[int] value;
+[string] buildVersion <- 32 bits
+[string] username
+[string] password
 ```
 
 ## Outgoing Packets
+
+### Welcome
+
+```c#
+[int] header: 0
+[int] sessionKey
+[int] ?
+[int] ?
+```
