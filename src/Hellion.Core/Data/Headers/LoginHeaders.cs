@@ -12,7 +12,7 @@
 
         public enum Outgoing : int
         {
-            Greetings = 0x00,
+            Welcome = 0x00,
             ServerList = 0xFD,
             LoginMessage = 0xFE,
             Pong = 0x0B,

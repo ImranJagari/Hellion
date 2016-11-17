@@ -2,8 +2,10 @@
 using Ether.Network.Packets;
 using Hellion.Core;
 using Hellion.Core.Data.Headers;
+using Hellion.Core.IO;
 using Hellion.Core.Network;
 using System.Net.Sockets;
+using System.Linq;
 
 namespace Hellion.Login
 {
@@ -13,6 +15,11 @@ namespace Hellion.Login
     public class Client : NetConnection
     {
         private uint sessionId;
+
+        /// <summary>
+        /// Gets or sets the LoginServer reference.
+        /// </summary>
+        public LoginServer Server { get; set; }
 
         /// <summary>
         /// Creates a new Login Client instance.
@@ -40,7 +47,7 @@ namespace Hellion.Login
         {
             var packet = new FFPacket();
 
-            packet.WriteHeader(LoginHeaders.Outgoing.Greetings);
+            packet.WriteHeader(LoginHeaders.Outgoing.Welcome);
             packet.Write(this.sessionId);
 
             this.Send(packet);
@@ -55,11 +62,86 @@ namespace Hellion.Login
             packet.Position += 13;
             var packetHeaderNumber = packet.Read<int>();
             var packetHeader = (LoginHeaders.Incoming)packetHeaderNumber;
+            var pak = packet as FFPacket;
 
             switch (packetHeader)
             {
+                case LoginHeaders.Incoming.LoginRequest:
+                    this.OnLoginRequest(pak);
+                    break;
                 default: FFPacket.UnknowPacket<LoginHeaders.Incoming>(packetHeaderNumber, 2); break;
             }
+        }
+
+        private void OnLoginRequest(FFPacket packet)
+        {
+            var buildVersion = packet.ReadString();
+            var username = packet.ReadString();
+            var password = packet.ReadString();
+
+            Log.Debug("Recieved from client: buildVersion: {0}, username: {1}, password: {2}", buildVersion, username, password);
+
+            // Database request
+            var user = (from x in LoginServer.DbContext.Users
+                        where x.Username == username
+                        select x).FirstOrDefault();
+
+            if (user == null)
+            {
+                Log.Info($"User '{username}' logged in with bad credentials. (Bad username)");
+                this.SendLoginError(LoginHeaders.LoginErrors.WrongID);
+                this.Server.RemoveClient(this);
+            }
+            else
+            {
+                if (password.ToLower() != user.Password.ToLower())
+                {
+                    Log.Info($"User '{username}' logged in with bad credentials. (Bad password)");
+                    this.SendLoginError(LoginHeaders.LoginErrors.WrongPassword);
+                    this.Server.RemoveClient(this);
+                    return;
+                }
+
+                if (user.Authority <= 0)
+                {
+                    Log.Info($"User '{username}' account is suspended.");
+                    this.SendLoginError(LoginHeaders.LoginErrors.AccountSuspended);
+                    this.Server.RemoveClient(this);
+                    return;
+                }
+
+                // Check if i'm already connected
+                // If yes, disconnected the other client and disconected me.
+                // Wait for Ether.Network update to access client list from the server
+
+                // Send server list
+                this.SendServerList();
+            }
+        }
+
+        private void SendLoginError(LoginHeaders.LoginErrors code)
+        {
+            this.SendLoginMessage((int)code);
+        }
+
+        private void SendLoginMessage(int code)
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(LoginHeaders.Outgoing.LoginMessage);
+            packet.Write(code);
+
+            this.Send(packet);
+        }
+
+        private void SendServerList()
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(LoginHeaders.Outgoing.ServerList);
+            // TODO: structure with ISC
+
+            //this.Send(packet);
         }
     }
 }

@@ -85,7 +85,10 @@ namespace Hellion.Login
         /// <param name="client">Client</param>
         protected override void OnClientConnected(NetConnection client)
         {
-            Log.Info("New client connected!");
+            Log.Info("New client connected from {0}", client.Socket.RemoteEndPoint.ToString());
+
+            if (client is Client)
+                (client as Client).Server = this;
         }
 
         /// <summary>

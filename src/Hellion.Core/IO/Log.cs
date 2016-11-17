@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Hellion.Core.IO
 {
@@ -13,6 +14,11 @@ namespace Hellion.Core.IO
 
     public static class Log
     {
+        static Log()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         public static void Info(string format, params object[] args)
         {
             WriteConsole(LogType.Info, string.Format(format, args));

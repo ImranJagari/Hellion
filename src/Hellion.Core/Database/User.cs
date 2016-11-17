@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Pomelo.EntityFrameworkCore.MySql;
-using Microsoft.EntityFrameworkCore;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hellion.Core.Database
 {
-    [DataContract]
+    [Table("users")]
     public class User
     {
-        [DataMember(Name = "id")]
+        [Column("id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "username")]
+        [Column("username")]
         public string Username { get; set; }
 
-        [DataMember(Name = "password")]
+        [Column("password")]
         public string Password { get; set; }
+
+        [Column("authority")]
+        public int Authority { get; set; }
     }
 }

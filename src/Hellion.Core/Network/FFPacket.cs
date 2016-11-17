@@ -3,6 +3,7 @@ using Hellion.Core.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Hellion.Core.Network
 {
@@ -50,6 +51,20 @@ namespace Hellion.Core.Network
         public void WriteHeader(object header)
         {
             this.Write((int)header);
+        }
+
+        /// <summary>
+        /// Read FFString.
+        /// </summary>
+        /// <returns></returns>
+        public string ReadString()
+        {
+            int size = this.Read<int>();
+
+            if (size == 0)
+                return string.Empty;
+
+            return Encoding.GetEncoding(1252).GetString(this.memoryReader.ReadBytes(size));
         }
 
         /// <summary>
