@@ -2,13 +2,28 @@
 
 ## Incoming Packets
 
-Packet structure test:
+### Authentification
+
+_Description:_
+
+The InterClient sends to the InterServer the authentifcation request.
+
+_Structure:_
 
 ```c#
-[int] number;
-[string] text;
-for (int i = 0; i < count; ++i)
-	[int] value;
+[int] header: InterHeaders.Authentification (0x01)
 ```
 
 ## Outgoing Packets
+
+### Welcome
+
+_Description:_
+
+The InterServer sends to the InterClient a message that indicates that he can authentificate.
+
+_Structure:_
+
+```c#
+[int] header: InterHeaders.CanAuthentificate (0x00)
+```

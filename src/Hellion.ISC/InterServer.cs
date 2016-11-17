@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Hellion.ISC
 {
-    public sealed class InterServer : NetServer<Client>
+    public sealed class InterServer : NetServer<InterClient>
     {
         /// <summary>
         /// ISC Configuration file path.
@@ -54,7 +54,7 @@ namespace Hellion.ISC
         /// <param name="client">Client</param>
         protected override void OnClientConnected(NetConnection client)
         {
-            Log.Info("New client connected");
+            Log.Info("New inter client connected from {0}.", client.Socket.RemoteEndPoint.ToString());
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Hellion.ISC
         /// <param name="client">Client</param>
         protected override void OnClientDisconnected(NetConnection client)
         {
-            Log.Info("Client disconnected");
+            Log.Info("Inter client with id : {0} disconnected.", client.Id);
         }
 
         /// <summary>
