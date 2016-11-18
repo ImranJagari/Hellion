@@ -1,8 +1,10 @@
 ﻿using Ether.Network;
 using Hellion.Core.Configuration;
+using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Hellion.ISC
 {
@@ -55,6 +57,9 @@ namespace Hellion.ISC
         protected override void OnClientConnected(NetConnection client)
         {
             Log.Info("New inter client connected from {0}.", client.Socket.RemoteEndPoint.ToString());
+
+            if (client is InterClient)
+                (client as InterClient).Server = this;
         }
 
         /// <summary>
@@ -64,6 +69,13 @@ namespace Hellion.ISC
         protected override void OnClientDisconnected(NetConnection client)
         {
             Log.Info("Inter client with id : {0} disconnected.", client.Id);
+        }
+
+        /// <summary>
+        /// Dispose the server's resources.
+        /// </summary>
+        public override void DisposeServer()
+        {
         }
 
         /// <summary>
@@ -82,6 +94,19 @@ namespace Hellion.ISC
             this.Configuration.Port = this.IscConfiguration.Port;
 
             Log.Done("Configuration loaded!");
+        }
+
+        /// <summary>
+        /// Verify if there is already a login server connected to the ISC.
+        /// </summary>
+        /// <returns></returns>
+        internal bool HasLoginServerConnected()
+        {
+            var connectedLoginServer = from x in this.Clients
+                                       where (x as InterClient).ServerType == InterServerType.Login
+                                       select x;
+
+            return connectedLoginServer.Any();
         }
     }
 }

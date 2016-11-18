@@ -8,6 +8,7 @@ namespace Hellion.Core
     public class Global
     {
         public const string LocalAddress = "127.0.0.1";
+        public const string IscDefaultPassword = "4fded1464736e77865df232cbcb4cd19";
         public const int IscDefaultPort = 15000;
         public const int LoginDefaultPort = 23000;
         public const int ClusterDefaultPort = 28000;

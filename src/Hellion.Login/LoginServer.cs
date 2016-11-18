@@ -4,9 +4,11 @@ using Hellion.Core.Configuration;
 using Hellion.Core.Database;
 using Hellion.Core.IO;
 using Hellion.Core.Network;
+using Hellion.Login.ISC;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace Hellion.Login
 {
@@ -33,6 +35,9 @@ namespace Hellion.Login
         }
         private static object syncDatabase = new object();
         private static DatabaseContext dbContext = null;
+
+        private InterConnector connector;
+        private Thread iscThread;
 
         /// <summary>
         /// Gets the login server configuration.
@@ -111,6 +116,13 @@ namespace Hellion.Login
         }
 
         /// <summary>
+        /// Dispose the server's resources.
+        /// </summary>
+        public override void DisposeServer()
+        {
+        }
+
+        /// <summary>
         /// Load the LoginServer configuration.
         /// </summary>
         private void LoadConfiguration()
@@ -157,7 +169,22 @@ namespace Hellion.Login
         private void ConnectToISC()
         {
             Log.Info("Connecting to Inter-Server...");
-            // TODO
+
+            this.connector = new InterConnector(this);
+
+            try
+            {
+                this.connector.Connect(this.LoginConfiguration.ISC.Ip, this.LoginConfiguration.ISC.Port);
+                this.iscThread = new Thread(this.connector.Run);
+                this.iscThread.Start();
+            }
+            catch (Exception e)
+            {
+                Log.Error("Cannot connect to ISC. {0}", e.Message);
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+            
             Log.Done("Connected to Inter-Server!");
         }
     }

@@ -53,11 +53,19 @@ namespace Hellion.Core.Network
             this.Write((int)header);
         }
 
+        public override T Read<T>()
+        {
+            if (typeof(T) == typeof(string))
+                return (T)(object)this.ReadString();
+
+            return base.Read<T>();
+        }
+
         /// <summary>
         /// Read FFString.
         /// </summary>
         /// <returns></returns>
-        public string ReadString()
+        private string ReadString()
         {
             int size = this.Read<int>();
 

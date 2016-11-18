@@ -75,9 +75,9 @@ namespace Hellion.Login
 
         private void OnLoginRequest(FFPacket packet)
         {
-            var buildVersion = packet.ReadString();
-            var username = packet.ReadString();
-            var password = packet.ReadString();
+            var buildVersion = packet.Read<string>();
+            var username = packet.Read<string>();
+            var password = packet.Read<string>();
 
             Log.Debug("Recieved from client: buildVersion: {0}, username: {1}, password: {2}", buildVersion, username, password);
 

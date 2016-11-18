@@ -18,12 +18,23 @@ namespace Hellion.Core.Configuration
         public int Port { get; set; }
 
         /// <summary>
+        /// Gets or sets the inter password.
+        /// </summary>
+        /// <remarks>
+        /// This password will be used during the authentification process.
+        /// It will allow only the servers that have the this password to authentificate them selfs.
+        /// </remarks>
+        [DataMember(Name = "interPassword")]
+        public string Password { get; set; }
+
+        /// <summary>
         /// Creates a new ISCConfiguration instance.
         /// </summary>
         public ISCConfiguration()
         {
             this.Ip = Global.LocalAddress;
             this.Port = Global.IscDefaultPort;
+            this.Password = Global.IscDefaultPassword;
         }
     }
 }
