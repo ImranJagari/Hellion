@@ -137,6 +137,16 @@ namespace Hellion.Login
             return connectedClients.Any();
         }
 
+        private int GetServerCount()
+        {
+            int count = 0;
+
+            foreach (var cluster in LoginServer.Clusters)
+                count += cluster.Worlds.Count + 1; // plus one is for the current cluster
+
+            return count;
+        }
+
         private void SendLoginError(LoginHeaders.LoginErrors code)
         {
             this.SendLoginMessage((int)code);
@@ -160,7 +170,7 @@ namespace Hellion.Login
             packet.Write(0);
             packet.Write<byte>(1);
             packet.Write("admin");
-            packet.Write(LoginServer.Clusters.Count());
+            packet.Write(this.GetServerCount());
 
             foreach (ClusterServerInfo cluster in LoginServer.Clusters)
             {
@@ -178,9 +188,9 @@ namespace Hellion.Login
                     packet.Write(cluster.Id);
                     packet.Write(world.Id); 
                     packet.Write(world.Name); // Channel name
+                    packet.Write(world.Ip);
                     packet.Write(0);
                     packet.Write(0);
-                    packet.Write(1);
                     packet.Write(1);
                     packet.Write(world.Capacity);
                 }

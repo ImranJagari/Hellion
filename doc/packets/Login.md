@@ -58,5 +58,21 @@ _Structure:_
 
 ```c#
 [int] header: LoginHeaders.Outgoing.ServerList (0xFD)
-// Not finished yet.
+[int] 
+[byte]
+[string] username
+[int] serverCount (= clusterCount + worldCount)
+
+for (int i = 0; i < serverCount; ++i)
+{
+    [int] clusterId (-1 when it's a ClusterServer)
+    [int] serverId
+    [string] serverName
+    [string] host ip
+    [int] 0 // need to figure out what this is
+    [int] 0 // number of people connected ?
+    [int] 1 // ??
+    [int] worldCapacity // Just for world servers ??
+}
+
 ```
