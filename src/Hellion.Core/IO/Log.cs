@@ -14,6 +14,8 @@ namespace Hellion.Core.IO
 
     public static class Log
     {
+        private static object syncLog = new object();
+
         static Log()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -21,28 +23,33 @@ namespace Hellion.Core.IO
 
         public static void Info(string format, params object[] args)
         {
-            WriteConsole(LogType.Info, string.Format(format, args));
+            lock (syncLog)
+                WriteConsole(LogType.Info, string.Format(format, args));
         }
 
         public static void Done(string format, params object[] args)
         {
-            WriteConsole(LogType.Done, string.Format(format, args));
+            lock (syncLog)
+                WriteConsole(LogType.Done, string.Format(format, args));
         }
 
         public static void Warning(string format, params object[] args)
         {
-            WriteConsole(LogType.Warning, string.Format(format, args));
+            lock (syncLog)
+                WriteConsole(LogType.Warning, string.Format(format, args));
         }
 
         public static void Error(string format, params object[] args)
         {
-            WriteConsole(LogType.Error, string.Format(format, args));
+            lock (syncLog)
+                WriteConsole(LogType.Error, string.Format(format, args));
         }
 
         public static void Debug(string format, params object[] args)
         {
 #if DEBUG
-            WriteConsole(LogType.Debug, string.Format(format, args));
+            lock (syncLog)
+                WriteConsole(LogType.Debug, string.Format(format, args));
 #endif
         }
 

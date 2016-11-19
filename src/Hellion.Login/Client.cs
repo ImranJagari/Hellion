@@ -6,6 +6,7 @@ using Hellion.Core.IO;
 using Hellion.Core.Network;
 using System.Net.Sockets;
 using System.Linq;
+using Hellion.Core.ISC.Structures;
 
 namespace Hellion.Login
 {
@@ -110,13 +111,30 @@ namespace Hellion.Login
                     return;
                 }
 
-                // Check if i'm already connected
-                // If yes, disconnected the other client and disconected me.
-                // Wait for Ether.Network update to access client list from the server
+                Client connectedClient = null;
+                if (this.IsAlreadyConnected(out connectedClient))
+                {
+                    this.SendLoginError(LoginHeaders.LoginErrors.AccountAlreadyOn);
+                    this.Server.RemoveClient(this);
+                    this.Server.RemoveClient(connectedClient);
+                    return;
+                }
 
                 // Send server list
                 this.SendServerList();
             }
+        }
+
+        private bool IsAlreadyConnected(out Client connectedClient)
+        {
+            var connectedClients = from x in this.Server.Clients.Cast<Client>()
+                                  where x.Socket.Connected
+                                  where x.GetHashCode() != this.GetHashCode()
+                                  select x;
+
+            connectedClient = connectedClients.FirstOrDefault();
+
+            return connectedClients.Any();
         }
 
         private void SendLoginError(LoginHeaders.LoginErrors code)
@@ -139,9 +157,36 @@ namespace Hellion.Login
             var packet = new FFPacket();
 
             packet.WriteHeader(LoginHeaders.Outgoing.ServerList);
-            // TODO: structure with ISC
+            packet.Write(0);
+            packet.Write<byte>(1);
+            packet.Write("admin");
+            packet.Write(LoginServer.Clusters.Count());
 
-            //this.Send(packet);
+            foreach (ClusterServerInfo cluster in LoginServer.Clusters)
+            {
+                packet.Write(-1);
+                packet.Write(cluster.Id);
+                packet.Write(cluster.Name);
+                packet.Write(cluster.Ip);
+                packet.Write(0);
+                packet.Write(0);
+                packet.Write(1);
+                packet.Write(0);
+
+                foreach (WorldServerInfo world in cluster.Worlds)
+                {
+                    packet.Write(cluster.Id);
+                    packet.Write(world.Id); 
+                    packet.Write("Channel 1"); // Channel name
+                    packet.Write(0);
+                    packet.Write(0);
+                    packet.Write(1);
+                    packet.Write(1);
+                    packet.Write(world.Capacity);
+                }
+            }
+
+            this.Send(packet);
         }
     }
 }

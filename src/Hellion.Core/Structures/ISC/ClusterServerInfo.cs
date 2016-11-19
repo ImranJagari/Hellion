@@ -1,4 +1,6 @@
-﻿namespace Hellion.ISC.Structures
+﻿using System.Collections.Generic;
+
+namespace Hellion.Core.ISC.Structures
 {
     /// <summary>
     /// Reprensents the structure of a Cluster Server.
@@ -11,6 +13,11 @@
         public int Id { get; private set; }
 
         /// <summary>
+        /// Gets the world server informations of this cluster.
+        /// </summary>
+        public ICollection<WorldServerInfo> Worlds { get; private set; }
+
+        /// <summary>
         /// Creates a new ClusterServerInfo instance.
         /// </summary>
         /// <param name="id">Cluster Id</param>
@@ -20,6 +27,7 @@
             : base(ip, name)
         {
             this.Id = id;
+            this.Worlds = new List<WorldServerInfo>();
         }
     }
 }

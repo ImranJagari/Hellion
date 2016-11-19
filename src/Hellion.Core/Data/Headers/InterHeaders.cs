@@ -13,5 +13,6 @@
         CanAuthtificate = 0x00,
         Authentification = 0x01,
         AuthentificationResult = 0x02,
+        UpdateServerList = 0x03,
     }
 }

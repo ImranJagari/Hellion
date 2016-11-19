@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
-using Hellion.ISC.Structures;
+using Hellion.Core.ISC.Structures;
 
 namespace Hellion.ISC
 {
     public partial class InterClient : NetConnection
     {
-        private BaseServer serverInfo;
+        /// <summary>
+        /// Gets the server informations
+        /// </summary>
+        public BaseServer ServerInfo { get; private set; }
 
         /// <summary>
         /// Gets the server type.
@@ -97,6 +100,7 @@ namespace Hellion.ISC
                 if (this.Server.HasLoginServerConnected())
                 {
                     Log.Warning("A login server is already connected to the ISC.");
+                    this.SendAuthentificationResult(false);
                     this.Server.RemoveClient(this);
                     return;
                 }
@@ -113,6 +117,66 @@ namespace Hellion.ISC
             }
 
             this.ServerType = serverType;
+            this.SendAuthentificationResult(true);
+            this.SendServersList();
+        }
+
+        /// <summary>
+        /// Send the authentification result.
+        /// </summary>
+        /// <param name="result"></param>
+        private void SendAuthentificationResult(bool result)
+        {
+            var packet = new NetPacket();
+
+            packet.Write((int)InterHeaders.AuthentificationResult);
+            packet.Write(result);
+
+            this.Send(packet);
+        }
+
+        private IEnumerable<ClusterServerInfo> GetClusters()
+        {
+            return from x in this.Server.Clients.Cast<InterClient>()
+                   where x.ServerType == InterServerType.Cluster
+                   select x.ServerInfo as ClusterServerInfo;
+        }
+
+        private IEnumerable<WorldServerInfo> GetWorlds(int clusterId)
+        {
+            return from x in this.Server.Clients.Cast<InterClient>()
+                   where x.ServerType == InterServerType.World
+                   where (x.ServerInfo as WorldServerInfo).ClusterId == clusterId
+                   select x.ServerInfo as WorldServerInfo;
+        }
+
+        public void SendServersList()
+        {
+            var packet = new NetPacket();
+            IEnumerable<ClusterServerInfo> clusters = this.GetClusters();
+
+            packet.Write((int)InterHeaders.UpdateServerList);
+            packet.Write(clusters.Count());
+
+            foreach (var cluster in clusters)
+            {
+                packet.Write(cluster.Id);
+                packet.Write(cluster.Ip);
+                packet.Write(cluster.Name);
+
+                IEnumerable<WorldServerInfo> worlds = this.GetWorlds(cluster.Id);
+
+                packet.Write(worlds.Count());
+                foreach (var world in worlds)
+                {
+                    packet.Write(world.Id);
+                    packet.Write(world.Ip);
+                    packet.Write(world.Name);
+                    packet.Write(world.Capacity);
+                }
+            }
+
+            this.Server.SendPacketToLoginServer(packet);
         }
     }
 }

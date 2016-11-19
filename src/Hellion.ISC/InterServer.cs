@@ -1,8 +1,11 @@
 ﻿using Ether.Network;
+using Ether.Network.Packets;
 using Hellion.Core.Configuration;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
+using Hellion.Core.ISC.Structures;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -102,11 +105,27 @@ namespace Hellion.ISC
         /// <returns></returns>
         internal bool HasLoginServerConnected()
         {
-            var connectedLoginServer = from x in this.Clients
-                                       where (x as InterClient).ServerType == InterServerType.Login
+            var connectedLoginServer = from x in this.Clients.Cast<InterClient>()
+                                       where x.ServerType == InterServerType.Login
                                        select x;
 
             return connectedLoginServer.Any();
         }
+
+        /// <summary>
+        /// Send a packet to the login server.
+        /// </summary>
+        /// <param name="packet"></param>
+        internal void SendPacketToLoginServer(NetPacketBase packet)
+        {
+            var loginServer = (from x in this.Clients.Cast<InterClient>()
+                               where x.ServerType == InterServerType.Login
+                               select x).FirstOrDefault();
+
+            if (loginServer != null)
+                loginServer.Send(packet);
+        }
+
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Hellion.ISC.Structures
+﻿namespace Hellion.Core.ISC.Structures
 {
     /// <summary>
     /// Represents a base server informations.

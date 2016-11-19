@@ -53,6 +53,22 @@ namespace Hellion.Core.Network
             this.Write((int)header);
         }
 
+        public override void Write<T>(T value)
+        {
+            if (typeof(T) == typeof(string))
+            {
+                this.WriteString(value as string);
+                return;
+            }
+
+            base.Write<T>(value);
+        }
+
+        /// <summary>
+        /// Read data.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public override T Read<T>()
         {
             if (typeof(T) == typeof(string))
@@ -62,7 +78,7 @@ namespace Hellion.Core.Network
         }
 
         /// <summary>
-        /// Read FFString.
+        /// Read FF String.
         /// </summary>
         /// <returns></returns>
         private string ReadString()
@@ -73,6 +89,17 @@ namespace Hellion.Core.Network
                 return string.Empty;
 
             return Encoding.GetEncoding(1252).GetString(this.memoryReader.ReadBytes(size));
+        }
+
+        /// <summary>
+        /// Write FF string.
+        /// </summary>
+        /// <param name="value"></param>
+        private void WriteString(string value)
+        {
+            this.Write(value.Length);
+            if (value.Length > 0)
+                this.Write(Encoding.GetEncoding(0).GetBytes(value));
         }
 
         /// <summary>

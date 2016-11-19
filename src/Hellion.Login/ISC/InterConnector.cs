@@ -2,6 +2,7 @@
 using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
+using Hellion.Core.ISC.Structures;
 
 namespace Hellion.Login.ISC
 {
@@ -32,9 +33,8 @@ namespace Hellion.Login.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.CanAuthtificate:
-                    this.Authentificate();
-                    break;
+                case InterHeaders.CanAuthtificate: this.Authentificate(); break;
+                case InterHeaders.UpdateServerList: this.OnUpdateServerList(packet); break;
             }
         }
 
@@ -50,6 +50,35 @@ namespace Hellion.Login.ISC
             packet.Write(this.loginServer.LoginConfiguration.ISC.Password);
 
             this.Send(packet);
+        }
+
+        private void OnUpdateServerList(NetPacketBase packet)
+        {
+            LoginServer.Clusters.Clear();
+            var clusterCount = packet.Read<int>();
+
+            for (int i = 0; i < clusterCount; ++i)
+            {
+                var clusterId = packet.Read<int>();
+                var clusterIp = packet.Read<string>();
+                var clusterName = packet.Read<string>();
+
+                var cluster = new ClusterServerInfo(clusterId, clusterIp, clusterName);
+
+                var worldsCount = packet.Read<int>();
+
+                for (int j = 0; j < worldsCount; ++j)
+                {
+                    var worldId = packet.Read<int>();
+                    var worldIp = packet.Read<string>();
+                    var worldName = packet.Read<string>();
+                    var worldCapacity = packet.Read<int>();
+
+                    cluster.Worlds.Add(new WorldServerInfo(worldId, cluster.Id, worldCapacity, worldIp, worldName));
+                }
+
+                LoginServer.Clusters.Add(cluster);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Ether.Network.Packets;
 using Hellion.Core.Configuration;
 using Hellion.Core.Database;
 using Hellion.Core.IO;
+using Hellion.Core.ISC.Structures;
 using Hellion.Core.Network;
 using Hellion.Login.ISC;
 using System;
@@ -35,6 +36,19 @@ namespace Hellion.Login
         }
         private static object syncDatabase = new object();
         private static DatabaseContext dbContext = null;
+
+        public static ICollection<ClusterServerInfo> Clusters
+        {
+            get
+            {
+                lock (syncClusters)
+                {
+                    return clusters;
+                }
+            }
+        }
+        private static ICollection<ClusterServerInfo> clusters = new List<ClusterServerInfo>();
+        private static object syncClusters = new object();
 
         private InterConnector connector;
         private Thread iscThread;
@@ -181,7 +195,6 @@ namespace Hellion.Login
             catch (Exception e)
             {
                 Log.Error("Cannot connect to ISC. {0}", e.Message);
-                Console.ReadKey();
                 Environment.Exit(0);
             }
             
