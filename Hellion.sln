@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4A762668-BB7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AB1BC62-B6A6-4B69-815D-016EDA85DC6D}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		build.sh = build.sh
 		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
