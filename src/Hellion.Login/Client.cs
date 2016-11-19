@@ -177,7 +177,7 @@ namespace Hellion.Login
                 {
                     packet.Write(cluster.Id);
                     packet.Write(world.Id); 
-                    packet.Write("Channel 1"); // Channel name
+                    packet.Write(world.Name); // Channel name
                     packet.Write(0);
                     packet.Write(0);
                     packet.Write(1);
