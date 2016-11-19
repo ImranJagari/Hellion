@@ -52,6 +52,10 @@ namespace Hellion.Login.ISC
             this.Send(packet);
         }
 
+        /// <summary>
+        /// Updates the server list.
+        /// </summary>
+        /// <param name="packet"></param>
         private void OnUpdateServerList(NetPacketBase packet)
         {
             LoginServer.Clusters.Clear();

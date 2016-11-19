@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace Hellion.Core.Configuration
 {
@@ -20,6 +16,16 @@ namespace Hellion.Core.Configuration
         /// </summary>
         [DataMember(Name = "port")]
         public int Port { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client build version.
+        /// </summary>
+        /// <remarks>
+        /// During the authentification process, if this build version doesn't match the client build version
+        /// you will not be allowed to connect to the Login Server.
+        /// </remarks>
+        [DataMember(Name = "buildVersion")]
+        public string BuildVersion { get; set; }
 
         /// <summary>
         /// Gets or sets the ISC configuration.

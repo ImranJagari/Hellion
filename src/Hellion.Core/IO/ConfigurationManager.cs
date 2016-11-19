@@ -3,6 +3,9 @@ using System.IO;
 
 namespace Hellion.Core.IO
 {
+    /// <summary>
+    /// Configuration Manager.
+    /// </summary>
     public static class ConfigurationManager
     {
         /// <summary>

@@ -5,6 +5,7 @@ using Hellion.Core.Database;
 using Hellion.Core.IO;
 using Hellion.Core.ISC.Structures;
 using Hellion.Core.Network;
+using Hellion.Login.Client;
 using Hellion.Login.ISC;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Hellion.Login
     /// <summary>
     /// Hellion LoginServer implementation.
     /// </summary>
-    public sealed class LoginServer : NetServer<Client>
+    public sealed class LoginServer : NetServer<LoginClient>
     {
         private const string LoginConfigurationFile = "config/login.json";
         private const string DatabaseConfigurationFile = "config/database.json";
@@ -37,6 +38,9 @@ namespace Hellion.Login
         private static object syncDatabase = new object();
         private static DatabaseContext dbContext = null;
 
+        /// <summary>
+        /// Gets the cluster servers list.
+        /// </summary>
         public static ICollection<ClusterServerInfo> Clusters
         {
             get
@@ -106,8 +110,8 @@ namespace Hellion.Login
         {
             Log.Info("New client connected from {0}", client.Socket.RemoteEndPoint.ToString());
 
-            if (client is Client)
-                (client as Client).Server = this;
+            if (client is LoginClient)
+                (client as LoginClient).Server = this;
         }
 
         /// <summary>
@@ -116,7 +120,7 @@ namespace Hellion.Login
         /// <param name="client">Client</param>
         protected override void OnClientDisconnected(NetConnection client)
         {
-            Log.Info("client disconnected");
+            Log.Info("Client with id {0} disconnected.", client.Id);
         }
 
         /// <summary>
