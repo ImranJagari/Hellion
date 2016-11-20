@@ -35,6 +35,8 @@ namespace Hellion.Login.ISC
             {
                 case InterHeaders.CanAuthtificate: this.Authentificate(); break;
                 case InterHeaders.UpdateServerList: this.OnUpdateServerList(packet); break;
+
+                default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
         }
 

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Hellion.Cluster
+﻿namespace Hellion.Cluster
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            using (var server = new ClusterServer())
+                server.Start();
         }
     }
 }
