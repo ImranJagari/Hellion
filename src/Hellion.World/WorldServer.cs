@@ -1,11 +1,10 @@
 ﻿using Ether.Network;
 using Ether.Network.Packets;
-using Hellion.Cluster.Client;
-using Hellion.Cluster.ISC;
 using Hellion.Core.Configuration;
 using Hellion.Core.Database;
 using Hellion.Core.IO;
 using Hellion.Core.Network;
+using Hellion.World.ISC;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +12,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Hellion.Cluster
+namespace Hellion.World
 {
-    public class ClusterServer : NetServer<ClusterClient>
+    public class WorldServer : NetServer<WorldClient>
     {
         private const string ClusterConfigurationFile = "config/cluster.json";
         private const string DatabaseConfigurationFile = "config/database.json";
@@ -40,9 +39,9 @@ namespace Hellion.Cluster
         private Thread iscThread;
 
         /// <summary>
-        /// Gets the cluster server configuration.
+        /// Gets the world server configuration.
         /// </summary>
-        public ClusterConfiguration ClusterConfiguration { get; private set; }
+        public WorldConfiguration WorldConfiguration { get; private set; }
 
         /// <summary>
         /// Gets the database configuration.
@@ -50,13 +49,13 @@ namespace Hellion.Cluster
         public DatabaseConfiguration DatabaseConfiguration { get; private set; }
 
         /// <summary>
-        /// Creates a new ClusterServer instance.
+        /// Creates a new WorldServer instance.
         /// </summary>
-        public ClusterServer()
+        public WorldServer()
             : base()
         {
-            Console.Title = "Hellion ClusterServer";
-            Log.Info("Starting ClusterServer...");
+            Console.Title = "Hellion WorldServer";
+            Log.Info("Starting WorldServer...");
         }
 
         /// <summary>
@@ -67,11 +66,11 @@ namespace Hellion.Cluster
         }
 
         /// <summary>
-        /// ClusterServer idle.
+        /// WorldServer idle.
         /// </summary>
         protected override void Idle()
         {
-            Log.Info("Server listening on port {0}", this.ClusterConfiguration.Port);
+            Log.Info("Server listening on port {0}", this.WorldConfiguration.Port);
 
             while (this.IsRunning)
             {
@@ -80,7 +79,7 @@ namespace Hellion.Cluster
         }
 
         /// <summary>
-        /// Initialize the ClusterServer.
+        /// Initialize the WorldServer.
         /// </summary>
         protected override void Initialize()
         {
@@ -99,8 +98,8 @@ namespace Hellion.Cluster
         {
             Log.Info("New client connected from {0}", client.Socket.RemoteEndPoint.ToString());
 
-            if (client is ClusterClient)
-                (client as ClusterClient).Server = this;
+            if (client is WorldClient)
+                (client as WorldClient).Server = this;
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace Hellion.Cluster
         }
 
         /// <summary>
-        /// Load the ClusterServer configuration.
+        /// Load the WorldServer configuration.
         /// </summary>
         private void LoadConfiguration()
         {
@@ -132,10 +131,10 @@ namespace Hellion.Cluster
             if (File.Exists(ClusterConfigurationFile) == false)
                 ConfigurationManager.Save(new LoginConfiguration(), ClusterConfigurationFile);
 
-            this.ClusterConfiguration = ConfigurationManager.Load<ClusterConfiguration>(ClusterConfigurationFile);
+            this.WorldConfiguration = ConfigurationManager.Load<WorldConfiguration>(ClusterConfigurationFile);
 
-            this.Configuration.Ip = this.ClusterConfiguration.Ip;
-            this.Configuration.Port = this.ClusterConfiguration.Port;
+            this.Configuration.Ip = this.WorldConfiguration.Ip;
+            this.Configuration.Port = this.WorldConfiguration.Port;
 
             if (File.Exists(DatabaseConfigurationFile) == false)
                 ConfigurationManager.Save(new DatabaseConfiguration(), DatabaseConfigurationFile);
@@ -175,7 +174,7 @@ namespace Hellion.Cluster
 
             try
             {
-                this.connector.Connect(this.ClusterConfiguration.ISC.Ip, this.ClusterConfiguration.ISC.Port);
+                this.connector.Connect(this.WorldConfiguration.ISC.Ip, this.WorldConfiguration.ISC.Port);
                 this.iscThread = new Thread(this.connector.Run);
                 this.iscThread.Start();
             }
