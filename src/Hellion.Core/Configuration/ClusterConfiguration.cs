@@ -3,10 +3,10 @@
 namespace Hellion.Core.Configuration
 {
     /// <summary>
-    /// Represents the Login Configuration file.
+    /// Reprensents the cluster configuration file.
     /// </summary>
     [DataContract]
-    public class LoginConfiguration
+    public class ClusterConfiguration
     {
         /// <summary>
         /// Gets or sets the IP address.
@@ -21,20 +21,16 @@ namespace Hellion.Core.Configuration
         public int Port { get; set; }
 
         /// <summary>
-        /// Gets or sets the client build version.
+        /// Gets or sets the cluster Id.
         /// </summary>
-        /// <remarks>
-        /// During the authentification process, if this build version doesn't match the client build version
-        /// you will not be allowed to connect to the Login Server.
-        /// </remarks>
-        [DataMember(Name = "buildVersion")]
-        public string BuildVersion { get; set; }
+        [DataMember(Name = "clusterId")]
+        public int ClusterId { get; set; }
 
         /// <summary>
-        /// Gets or sets the value if we check the account verification.
+        /// Gets or sets the cluster name.
         /// </summary>
-        [DataMember(Name = "accountVerification")]
-        public bool AccountVerification { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the ISC configuration.
@@ -43,13 +39,14 @@ namespace Hellion.Core.Configuration
         public ISCConfiguration ISC { get; set; }
 
         /// <summary>
-        /// Creates a new LoginConfiguration instance.
+        /// Creates a new ClusterConfiguration instance.
         /// </summary>
-        public LoginConfiguration()
+        public ClusterConfiguration()
         {
             this.Ip = Global.LocalAddress;
-            this.Port = Global.LoginDefaultPort;
-
+            this.Port = Global.ClusterDefaultPort;
+            this.ClusterId = 1;
+            this.Name = "Server 1";
             this.ISC = new ISCConfiguration();
         }
     }

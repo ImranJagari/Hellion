@@ -8,11 +8,16 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Ether.Network.Packets;
 
-namespace Hellion.Cluster
+namespace Hellion.Cluster.Client
 {
-    public class ClusterClient : NetConnection
+    public partial class ClusterClient : NetConnection
     {
         private uint sessionId;
+
+        /// <summary>
+        /// Gets or sets the server reference.
+        /// </summary>
+        public ClusterServer Server { get; set; }
 
         /// <summary>
         /// Creates a new ClusterClient instance.

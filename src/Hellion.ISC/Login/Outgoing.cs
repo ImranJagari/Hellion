@@ -1,52 +1,57 @@
 ﻿using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
-using Hellion.Core.IO;
+using Hellion.Core.ISC.Structures;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hellion.ISC
 {
     public partial class InterClient
     {
         /// <summary>
-        /// Process the authentification of a server.
+        /// Send the authentification result.
         /// </summary>
-        /// <param name="packet">Incoming packet</param>
-        private void OnAuthentification(NetPacketBase packet)
+        /// <param name="result"></param>
+        private void SendAuthentificationResult(bool result)
         {
-            var serverTypeNumber = packet.Read<int>();
-            var interPassword = packet.Read<string>();
-            var serverType = (InterServerType)serverTypeNumber;
+            var packet = new NetPacket();
 
-            if (interPassword.ToLower() != this.Server.IscConfiguration.Password.ToLower())
-            {
-                Log.Warning("A client tryied to authentificate with an incorect password.");
-                this.Server.RemoveClient(this);
-                return;
-            }
+            packet.Write((int)InterHeaders.AuthentificationResult);
+            packet.Write(result);
 
-            if (serverType == InterServerType.Login)
+            this.Send(packet);
+        }
+
+        /// <summary>
+        /// Send the server list to the LoginServer.
+        /// </summary>
+        public void SendServersList()
+        {
+            var packet = new NetPacket();
+            IEnumerable<ClusterServerInfo> clusters = this.GetClusters();
+
+            packet.Write((int)InterHeaders.UpdateServerList);
+            packet.Write(clusters.Count());
+
+            foreach (var cluster in clusters)
             {
-                if (this.Server.HasLoginServerConnected())
+                packet.Write(cluster.Id);
+                packet.Write(cluster.Ip);
+                packet.Write(cluster.Name);
+
+                IEnumerable<WorldServerInfo> worlds = this.GetWorlds(cluster.Id);
+
+                packet.Write(worlds.Count());
+                foreach (var world in worlds)
                 {
-                    Log.Warning("A login server is already connected to the ISC.");
-                    this.SendAuthentificationResult(false);
-                    this.Server.RemoveClient(this);
-                    return;
+                    packet.Write(world.Id);
+                    packet.Write(world.Ip);
+                    packet.Write(world.Name);
+                    packet.Write(world.Capacity);
                 }
-
-                Log.Info("New LoginServer authentificated from {0}.", this.Socket.RemoteEndPoint.ToString());
             }
 
-            if (serverType == InterServerType.Cluster)
-            {
-            }
-
-            if (serverType == InterServerType.World)
-            {
-            }
-
-            this.ServerType = serverType;
-            this.SendAuthentificationResult(true);
-            this.SendServersList();
+            this.Server.SendPacketToLoginServer(packet);
         }
     }
 }

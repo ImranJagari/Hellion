@@ -84,7 +84,7 @@ namespace Hellion.Login
         {
             Log.Info("Server listening on port {0}", this.LoginConfiguration.Port);
 
-            while (true)
+            while (this.IsRunning)
             {
                 Console.ReadKey();
             }

@@ -19,7 +19,7 @@ namespace Hellion.Core.IO
             string value = "";
 
             if (File.Exists(path) == false)
-                return default(T);
+                Save(default(T), path);
 
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (var reader = new StreamReader(fileStream))

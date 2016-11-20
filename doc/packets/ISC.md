@@ -10,8 +10,21 @@ The InterClient sends to the InterServer the authentifcation request.
 
 _Structure:_
 
+**Login**
 ```c#
 [int] header: InterHeaders.Authentification (0x01)
+[int] serverType
+[string] interPassword
+```
+
+**Cluster**
+```c#
+[int] header: InterHeaders.Authentification (0x01)
+[int] serverType
+[string] interPassword
+[int] clusterId
+[string] clusterName
+[string] clusterIp
 ```
 
 ## Outgoing Packets

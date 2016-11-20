@@ -34,9 +34,26 @@ namespace Hellion.Cluster.ISC
 
             switch (packetHeader)
             {
-
+                case InterHeaders.CanAuthtificate: this.Authentificate(); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
+        }
+
+        /// <summary>
+        /// Authentificate the cluster server.
+        /// </summary>
+        private void Authentificate()
+        {
+            var packet = new NetPacket();
+
+            packet.Write((int)InterHeaders.Authentification);
+            packet.Write((int)InterServerType.Cluster);
+            packet.Write(this.clusterServer.ClusterConfiguration.ISC.Password);
+            packet.Write(this.clusterServer.ClusterConfiguration.ClusterId);
+            packet.Write(this.clusterServer.ClusterConfiguration.Name);
+            packet.Write(this.clusterServer.ClusterConfiguration.Ip);
+
+            this.Send(packet);
         }
     }
 }

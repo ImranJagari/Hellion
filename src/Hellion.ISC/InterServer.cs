@@ -39,7 +39,7 @@ namespace Hellion.ISC
         {
             Log.Info("ISC Server listening on port {0}", this.Configuration.Port);
 
-            while (true)
+            while (this.IsRunning)
             {
                 Console.ReadKey();
             }
