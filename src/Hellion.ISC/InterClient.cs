@@ -101,5 +101,15 @@ namespace Hellion.ISC
                    where x.Socket.Connected
                    select x.ServerInfo as WorldServerInfo;
         }
+
+        private bool HasClusterWithId(int clusterId)
+        {
+            var clusters = from x in this.Server.Clients.Cast<InterClient>()
+                           where x.ServerType == InterServerType.Cluster
+                           where (x.ServerInfo as ClusterServerInfo).Id == clusterId
+                           select x;
+
+            return clusters.Any();
+        }
     }
 }

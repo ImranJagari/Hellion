@@ -2,6 +2,7 @@
   "ip": "127.0.0.1",
   "port": 23000,
   "buildVersion": "20100412",
+  "accountVerification": true,
   "isc": {
     "ip": "127.0.0.1",
     "port": 15000,

@@ -72,6 +72,10 @@ namespace Hellion.ISC
         protected override void OnClientDisconnected(NetConnection client)
         {
             Log.Info("Inter client with id : {0} disconnected.", client.Id);
+
+            InterClient loginServer = this.GetLoginServer();
+
+            loginServer.SendServersList();
         }
 
         /// <summary>
@@ -105,11 +109,18 @@ namespace Hellion.ISC
         /// <returns></returns>
         internal bool HasLoginServerConnected()
         {
-            var connectedLoginServer = from x in this.Clients.Cast<InterClient>()
-                                       where x.ServerType == InterServerType.Login
-                                       select x;
+            return this.GetLoginServer() != null;
+        }
 
-            return connectedLoginServer.Any();
+        /// <summary>
+        /// Gets the login server.
+        /// </summary>
+        /// <returns></returns>
+        internal InterClient GetLoginServer()
+        {
+            return (from x in this.Clients.Cast<InterClient>()
+                    where x.ServerType == InterServerType.Login
+                    select x).FirstOrDefault();
         }
 
         /// <summary>
@@ -118,14 +129,10 @@ namespace Hellion.ISC
         /// <param name="packet"></param>
         internal void SendPacketToLoginServer(NetPacketBase packet)
         {
-            var loginServer = (from x in this.Clients.Cast<InterClient>()
-                               where x.ServerType == InterServerType.Login
-                               select x).FirstOrDefault();
+            var loginServer = this.GetLoginServer();
 
             if (loginServer != null)
                 loginServer.Send(packet);
         }
-
-
     }
 }

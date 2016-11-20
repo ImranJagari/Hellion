@@ -3,6 +3,7 @@ using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
 using Hellion.Core.ISC.Structures;
+using System;
 
 namespace Hellion.Login.ISC
 {
@@ -34,6 +35,7 @@ namespace Hellion.Login.ISC
             switch (packetHeader)
             {
                 case InterHeaders.CanAuthtificate: this.Authentificate(); break;
+                case InterHeaders.AuthentificationResult: this.OnAuthentificationResult(packet); break;
                 case InterHeaders.UpdateServerList: this.OnUpdateServerList(packet); break;
 
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
@@ -52,6 +54,14 @@ namespace Hellion.Login.ISC
             packet.Write(this.loginServer.LoginConfiguration.ISC.Password);
 
             this.Send(packet);
+        }
+
+        private void OnAuthentificationResult(NetPacketBase packet)
+        {
+            var result = packet.Read<bool>();
+
+            if (result == false)
+                Environment.Exit(0);
         }
 
         /// <summary>
