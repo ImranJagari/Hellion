@@ -28,6 +28,12 @@ namespace Hellion.Core.Configuration
         public string BuildVersion { get; set; }
 
         /// <summary>
+        /// Gets or sets the value if we check the account verification.
+        /// </summary>
+        [DataMember(Name = "accountVerification")]
+        public bool AccountVerification { get; set; }
+
+        /// <summary>
         /// Gets or sets the ISC configuration.
         /// </summary>
         [DataMember(Name = "isc")]

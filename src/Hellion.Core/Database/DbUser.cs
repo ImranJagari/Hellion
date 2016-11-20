@@ -3,7 +3,7 @@
 namespace Hellion.Core.Database
 {
     [Table("users")]
-    public class User
+    public class DbUser
     {
         [Column("id")]
         public int Id { get; set; }
@@ -16,5 +16,8 @@ namespace Hellion.Core.Database
 
         [Column("authority")]
         public int Authority { get; set; }
+
+        [Column("verification")]
+        public bool Verification { get; set; }
     }
 }

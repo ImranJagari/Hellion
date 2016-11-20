@@ -7,6 +7,10 @@ namespace Hellion.Login.Client
 {
     public partial class LoginClient
     {
+        /// <summary>
+        /// Login request.
+        /// </summary>
+        /// <param name="packet"></param>
         private void OnLoginRequest(FFPacket packet)
         {
             var buildVersion = packet.Read<string>();
@@ -31,7 +35,7 @@ namespace Hellion.Login.Client
                 if (buildVersion.ToLower() != this.Server.LoginConfiguration.BuildVersion?.ToLower())
                 {
                     Log.Info($"User '{username}' logged in with bad build version.");
-                    this.SendLoginError(LoginHeaders.LoginErrors.ResourceWasFalsified);
+                    this.SendLoginError(LoginHeaders.LoginErrors.ServerError);
                     this.Server.RemoveClient(this);
                     return;
                 }
@@ -47,6 +51,14 @@ namespace Hellion.Login.Client
                 if (user.Authority <= 0)
                 {
                     Log.Info($"User '{username}' account is suspended.");
+                    this.SendLoginError(LoginHeaders.LoginErrors.AccountSuspended);
+                    this.Server.RemoveClient(this);
+                    return;
+                }
+
+                if (user.Verification == false && this.Server.LoginConfiguration.AccountVerification == true)
+                {
+                    Log.Info($"User '{username}' account's has not been verified yet.");
                     this.SendLoginError(LoginHeaders.LoginErrors.AccountSuspended);
                     this.Server.RemoveClient(this);
                     return;

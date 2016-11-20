@@ -24,6 +24,6 @@ namespace Hellion.Core.Database
             optionsBuilder.UseMySql(connectionString);
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<DbUser> Users { get; set; }
     }
 }
