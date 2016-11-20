@@ -3,8 +3,6 @@ using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
 using Hellion.Core.ISC.Structures;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 
 namespace Hellion.ISC
@@ -74,42 +72,6 @@ namespace Hellion.ISC
                     Log.Warning("Unknow packet: 0x{0}", packetHeaderNumber.ToString("X2"));
                     break;
             }
-        }
-
-        /// <summary>
-        /// Get all clusters connected.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<ClusterServerInfo> GetClusters()
-        {
-            return from x in this.Server.Clients.Cast<InterClient>()
-                   where x.ServerType == InterServerType.Cluster
-                   where x.Socket.Connected
-                   select x.ServerInfo as ClusterServerInfo;
-        }
-
-        /// <summary>
-        /// Get all worlds connected by cluster Id.
-        /// </summary>
-        /// <param name="clusterId">Parent cluster Id</param>
-        /// <returns></returns>
-        private IEnumerable<WorldServerInfo> GetWorlds(int clusterId)
-        {
-            return from x in this.Server.Clients.Cast<InterClient>()
-                   where x.ServerType == InterServerType.World
-                   where (x.ServerInfo as WorldServerInfo).ClusterId == clusterId
-                   where x.Socket.Connected
-                   select x.ServerInfo as WorldServerInfo;
-        }
-
-        private bool HasClusterWithId(int clusterId)
-        {
-            var clusters = from x in this.Server.Clients.Cast<InterClient>()
-                           where x.ServerType == InterServerType.Cluster
-                           where (x.ServerInfo as ClusterServerInfo).Id == clusterId
-                           select x;
-
-            return clusters.Any();
         }
     }
 }

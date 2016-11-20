@@ -43,7 +43,7 @@ namespace Hellion.ISC
                 string clusterName = packet.Read<string>();
                 string clusterIp = packet.Read<string>();
 
-                if (this.HasClusterWithId(clusterId))
+                if (this.Server.HasClusterWithId(clusterId))
                 {
                     Log.Warning("A cluster server with same id is already connected to the ISC.");
                     this.SendAuthentificationResult(false);

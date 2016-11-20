@@ -104,6 +104,30 @@ namespace Hellion.ISC
         }
 
         /// <summary>
+        /// Send a packet to the login server.
+        /// </summary>
+        /// <param name="packet"></param>
+        internal void SendPacketToLoginServer(NetPacketBase packet)
+        {
+            var loginServer = this.GetLoginServer();
+
+            if (loginServer != null)
+                loginServer.Send(packet);
+        }
+        
+        /// <summary>
+        /// Get all clusters connected.
+        /// </summary>
+        /// <returns></returns>
+        internal IEnumerable<ClusterServerInfo> GetClusters()
+        {
+            return from x in this.Clients.Cast<InterClient>()
+                   where x.ServerType == InterServerType.Cluster
+                   where x.Socket.Connected
+                   select x.ServerInfo as ClusterServerInfo;
+        }
+
+        /// <summary>
         /// Verify if there is already a login server connected to the ISC.
         /// </summary>
         /// <returns></returns>
@@ -124,15 +148,40 @@ namespace Hellion.ISC
         }
 
         /// <summary>
-        /// Send a packet to the login server.
+        /// Get all worlds connected by cluster Id.
         /// </summary>
-        /// <param name="packet"></param>
-        internal void SendPacketToLoginServer(NetPacketBase packet)
+        /// <param name="clusterId">Parent cluster Id</param>
+        /// <returns></returns>
+        internal IEnumerable<WorldServerInfo> GetWorldsByClusterId(int clusterId)
         {
-            var loginServer = this.GetLoginServer();
+            return from x in this.Clients.Cast<InterClient>()
+                   where x.ServerType == InterServerType.World
+                   where (x.ServerInfo as WorldServerInfo).ClusterId == clusterId
+                   where x.Socket.Connected
+                   select x.ServerInfo as WorldServerInfo;
+        }
 
-            if (loginServer != null)
-                loginServer.Send(packet);
+        /// <summary>
+        /// Get cluster server by Id.
+        /// </summary>
+        /// <param name="clusterId">Cluster Server Id</param>
+        /// <returns></returns>
+        internal InterClient GetClusterById(int clusterId)
+        {
+            return (from x in this.Clients.Cast<InterClient>()
+                    where x.ServerType == InterServerType.Cluster
+                    where (x.ServerInfo as ClusterServerInfo).Id == clusterId
+                    select x).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Check if there is a cluster server with the same Id.
+        /// </summary>
+        /// <param name="clusterId">Cluster Server Id</param>
+        /// <returns></returns>
+        internal bool HasClusterWithId(int clusterId)
+        {
+            return this.GetClusterById(clusterId) != null;
         }
     }
 }

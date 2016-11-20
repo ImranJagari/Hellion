@@ -28,7 +28,7 @@ namespace Hellion.ISC
         public void SendServersList()
         {
             var packet = new NetPacket();
-            IEnumerable<ClusterServerInfo> clusters = this.GetClusters();
+            IEnumerable<ClusterServerInfo> clusters = this.Server.GetClusters();
 
             packet.Write((int)InterHeaders.UpdateServerList);
             packet.Write(clusters.Count());
@@ -39,7 +39,7 @@ namespace Hellion.ISC
                 packet.Write(cluster.Ip);
                 packet.Write(cluster.Name);
 
-                IEnumerable<WorldServerInfo> worlds = this.GetWorlds(cluster.Id);
+                IEnumerable<WorldServerInfo> worlds = this.Server.GetWorldsByClusterId(cluster.Id);
 
                 packet.Write(worlds.Count());
                 foreach (var world in worlds)
