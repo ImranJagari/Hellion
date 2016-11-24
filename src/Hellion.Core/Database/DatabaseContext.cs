@@ -25,5 +25,7 @@ namespace Hellion.Core.Database
         }
 
         public DbSet<DbUser> Users { get; set; }
+
+        public DbSet<DbCharacter> Characters { get; set; }
     }
 }
