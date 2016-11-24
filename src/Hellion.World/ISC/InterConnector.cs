@@ -32,8 +32,26 @@ namespace Hellion.World.ISC
 
             switch (packetHeader)
             {
+                case InterHeaders.CanAuthtificate: this.Authentificate(); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
+        }
+
+        private void Authentificate()
+        {
+            var packet = new NetPacket();
+
+            packet.Write((int)InterHeaders.Authentification);
+            packet.Write((int)InterServerType.World);
+            packet.Write(this.worldServer.WorldConfiguration.ISC.Password);
+            packet.Write(this.worldServer.WorldConfiguration.ClusterId);
+            packet.Write(this.worldServer.WorldConfiguration.WorldId);
+            packet.Write(this.worldServer.WorldConfiguration.Name);
+            packet.Write(this.worldServer.WorldConfiguration.Ip);
+            packet.Write(this.worldServer.WorldConfiguration.Capacity);
+            packet.Write(this.worldServer.Clients.Count);
+
+            this.Send(packet);
         }
     }
 }

@@ -73,5 +73,28 @@ namespace Hellion.ISC
                     break;
             }
         }
+
+        /// <summary>
+        /// Print disconnected log.
+        /// </summary>
+        internal void Disconnected()
+        {
+            if (this.ServerInfo is LoginServerInfo)
+                Log.Info("LoginServer disconnected.");
+            else if (this.ServerInfo is ClusterServerInfo)
+            {
+                var clusterInfo = this.ServerInfo as ClusterServerInfo;
+
+                Log.Info("ClusterServer '{0}' disconnected.", clusterInfo.Name);
+            }
+            else if (this.ServerInfo is WorldServerInfo)
+            {
+                var worldInfo = this.ServerInfo as WorldServerInfo;
+
+                Log.Info("WorldServer '{0}' disconnected.", worldInfo.Name);
+            }
+            else
+                Log.Info("Unknow client disconnected.");
+        }
     }
 }

@@ -48,6 +48,7 @@ namespace Hellion.ISC
                     packet.Write(world.Ip);
                     packet.Write(world.Name);
                     packet.Write(world.Capacity);
+                    packet.Write(world.ConnectedPlayerCount);
                 }
             }
 

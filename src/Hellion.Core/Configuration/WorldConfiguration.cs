@@ -21,6 +21,30 @@ namespace Hellion.Core.Configuration
         public int Port { get; set; }
 
         /// <summary>
+        /// Gets or sets the world's parent cluster Id.
+        /// </summary>
+        [DataMember(Name = "clusterId")]
+        public int ClusterId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the world Id.
+        /// </summary>
+        [DataMember(Name = "worldId")]
+        public int WorldId { get; set; }
+
+        /// <summary>
+        /// Gets or sest the world name.
+        /// </summary>
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the world server's amount of players.
+        /// </summary>
+        [DataMember(Name = "capacity")]
+        public int Capacity { get; set; }
+
+        /// <summary>
         /// Gets or sets the ISC configuration.
         /// </summary>
         [DataMember(Name = "isc")]

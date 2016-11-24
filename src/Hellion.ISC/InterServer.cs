@@ -71,11 +71,12 @@ namespace Hellion.ISC
         /// <param name="client">Client</param>
         protected override void OnClientDisconnected(NetConnection client)
         {
-            Log.Info("Inter client with id : {0} disconnected.", client.Id);
+            if (client is InterClient)
+                (client as InterClient).Disconnected();
 
             InterClient loginServer = this.GetLoginServer();
 
-            loginServer.SendServersList();
+            loginServer?.SendServersList();
         }
 
         /// <summary>
@@ -111,8 +112,7 @@ namespace Hellion.ISC
         {
             var loginServer = this.GetLoginServer();
 
-            if (loginServer != null)
-                loginServer.Send(packet);
+            loginServer?.Send(packet);
         }
         
         /// <summary>
@@ -175,6 +175,19 @@ namespace Hellion.ISC
         }
 
         /// <summary>
+        /// Get world server by Id.
+        /// </summary>
+        /// <param name="worldId">World server Id</param>
+        /// <returns></returns>
+        internal InterClient GetWorldById(int worldId)
+        {
+            return (from x in this.Clients.Cast<InterClient>()
+                    where x.ServerType == InterServerType.World
+                    where (x.ServerInfo as WorldServerInfo).Id == worldId
+                    select x).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Check if there is a cluster server with the same Id.
         /// </summary>
         /// <param name="clusterId">Cluster Server Id</param>
@@ -182,6 +195,25 @@ namespace Hellion.ISC
         internal bool HasClusterWithId(int clusterId)
         {
             return this.GetClusterById(clusterId) != null;
+        }
+
+        /// <summary>
+        /// Check if the cluster id has worlds.
+        /// </summary>
+        /// <param name="clusterId"></param>
+        /// <returns></returns>
+        internal bool HasWorldWithClusterId(int clusterId)
+        {
+            return this.GetWorldsByClusterId(clusterId).Any();
+        }
+
+        internal bool HasWorldInCluster(int clusterId, int worldId)
+        {
+            var worlds = this.GetWorldsByClusterId(clusterId);
+
+            return (from x in worlds
+                    where x.Id == worldId
+                    select x).Any();
         }
     }
 }

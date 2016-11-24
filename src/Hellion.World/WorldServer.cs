@@ -16,7 +16,7 @@ namespace Hellion.World
 {
     public class WorldServer : NetServer<WorldClient>
     {
-        private const string ClusterConfigurationFile = "config/cluster.json";
+        private const string WorldConfigurationFile = "config/world.json";
         private const string DatabaseConfigurationFile = "config/database.json";
 
         /// <summary>
@@ -128,10 +128,10 @@ namespace Hellion.World
         {
             Log.Info("Loading configuration...");
 
-            if (File.Exists(ClusterConfigurationFile) == false)
-                ConfigurationManager.Save(new LoginConfiguration(), ClusterConfigurationFile);
+            if (File.Exists(WorldConfigurationFile) == false)
+                ConfigurationManager.Save(new LoginConfiguration(), WorldConfigurationFile);
 
-            this.WorldConfiguration = ConfigurationManager.Load<WorldConfiguration>(ClusterConfigurationFile);
+            this.WorldConfiguration = ConfigurationManager.Load<WorldConfiguration>(WorldConfigurationFile);
 
             this.Configuration.Ip = this.WorldConfiguration.Ip;
             this.Configuration.Port = this.WorldConfiguration.Port;

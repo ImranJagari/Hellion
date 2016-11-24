@@ -89,8 +89,9 @@ namespace Hellion.Login.ISC
                     var worldIp = packet.Read<string>();
                     var worldName = packet.Read<string>();
                     var worldCapacity = packet.Read<int>();
+                    var worldConnectedPlayers = packet.Read<int>();
 
-                    cluster.Worlds.Add(new WorldServerInfo(worldId, cluster.Id, worldCapacity, worldIp, worldName));
+                    cluster.Worlds.Add(new WorldServerInfo(worldId, cluster.Id, worldCapacity, worldIp, worldName, worldConnectedPlayers));
                 }
 
                 LoginServer.Clusters.Add(cluster);

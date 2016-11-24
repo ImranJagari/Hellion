@@ -21,6 +21,11 @@
         public int Capacity { get; private set; }
 
         /// <summary>
+        /// Gets or sets the number of players connected.
+        /// </summary>
+        public int ConnectedPlayerCount { get; set; }
+
+        /// <summary>
         /// Creates a new WorldServerInfo instance.
         /// </summary>
         /// <param name="id">World Server Id</param>
@@ -28,12 +33,14 @@
         /// <param name="capacity">World server capacity</param>
         /// <param name="ip">World server ip address</param>
         /// <param name="name">World server name</param>
-        public WorldServerInfo(int id, int clusterId, int capacity, string ip, string name)
+        /// <param name="playerCount">Number of players connected</param>
+        public WorldServerInfo(int id, int clusterId, int capacity, string ip, string name, int playerCount)
             : base(ip, name)
         {
             this.Id = id;
             this.ClusterId = clusterId;
             this.Capacity = capacity;
+            this.ConnectedPlayerCount = playerCount;
         }
     }
 }

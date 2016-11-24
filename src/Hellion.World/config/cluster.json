@@ -1,7 +1,8 @@
 {
   "ip": "127.0.0.1",
   "port": 28000,
-  "clusterId": 1,
+  "buildVersion": null,
+  "accountVerification": false,
   "isc": {
     "ip": "127.0.0.1",
     "port": 15000,

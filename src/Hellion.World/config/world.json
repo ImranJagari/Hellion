@@ -1,7 +1,10 @@
 {
   "ip": "127.0.0.1",
-  "port": 28000,
+  "port": 14500,
   "clusterId": 1,
+  "worldId": 1,
+  "capacity": 100,
+  "name": "Channel 1",
   "isc": {
     "ip": "127.0.0.1",
     "port": 15000,
