@@ -27,6 +27,19 @@ _Structure:_
 [string] clusterIp
 ```
 
+**World**
+```c#
+[int] header: InterHeaders.Authentification (0x01)
+[int] serverType
+[string] interPassword
+[int] clusterId
+[int] worldId
+[string] worldName
+[string] worldIp
+[int] worldCapacity
+[int] worldConnectedPlayersCount
+```
+
 ## Outgoing Packets
 
 ### Welcome
@@ -77,6 +90,7 @@ for (int i = 0; i < clusterCount; ++i)
         [string] worldIp
         [string] worldName
         [int] worldCapacity
+        [int] worldConnectedPlayersCount
     }
 }
 ```

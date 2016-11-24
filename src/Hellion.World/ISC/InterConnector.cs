@@ -2,6 +2,7 @@
 using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
+using System;
 
 namespace Hellion.World.ISC
 {
@@ -33,10 +34,14 @@ namespace Hellion.World.ISC
             switch (packetHeader)
             {
                 case InterHeaders.CanAuthtificate: this.Authentificate(); break;
+                case InterHeaders.AuthentificationResult: this.OnAuthentificationResult(packet); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
         }
 
+        /// <summary>
+        /// Authentificate the world server.
+        /// </summary>
         private void Authentificate()
         {
             var packet = new NetPacket();
@@ -52,6 +57,18 @@ namespace Hellion.World.ISC
             packet.Write(this.worldServer.Clients.Count);
 
             this.Send(packet);
+        }
+
+        /// <summary>
+        /// Process the result of the authentification. 
+        /// </summary>
+        /// <param name="packet"></param>
+        private void OnAuthentificationResult(NetPacketBase packet)
+        {
+            var result = packet.Read<bool>();
+
+            if (result == false)
+                Environment.Exit(0);
         }
     }
 }

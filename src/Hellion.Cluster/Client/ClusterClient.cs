@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Ether.Network.Packets;
+using Hellion.Core.Data.Headers;
+using Hellion.Core.Network;
 
 namespace Hellion.Cluster.Client
 {
@@ -43,6 +45,7 @@ namespace Hellion.Cluster.Client
         /// </summary>
         public override void Greetings()
         {
+            this.SendSessionId();
         }
 
         /// <summary>
@@ -51,6 +54,21 @@ namespace Hellion.Cluster.Client
         /// <param name="packet">Incoming packet</param>
         public override void HandleMessage(NetPacketBase packet)
         {
+            packet.Position += 17;
+
+            var packetHeaderNumber = packet.Read<int>();
+            var packetHeader = (ClusterHeaders.Incoming)packetHeaderNumber;
+
+            switch (packetHeader)
+            {
+                case ClusterHeaders.Incoming.Ping: this.OnPing(packet); break;
+                case ClusterHeaders.Incoming.CharacterListRequest: this.OnCharacterListRequest(packet); break;
+                case ClusterHeaders.Incoming.CreateCharacter: this.OnCreateCharacter(packet); break;
+                case ClusterHeaders.Incoming.DeleteCharacter: this.OnDeleteCharacter(packet); break;
+
+                default: FFPacket.UnknowPacket<ClusterHeaders.Incoming>(packetHeaderNumber, 2); break;
+            }
+
             base.HandleMessage(packet);
         }
     }

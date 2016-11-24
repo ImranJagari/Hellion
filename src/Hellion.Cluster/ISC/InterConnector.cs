@@ -2,6 +2,7 @@
 using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
+using System;
 
 namespace Hellion.Cluster.ISC
 {
@@ -35,6 +36,7 @@ namespace Hellion.Cluster.ISC
             switch (packetHeader)
             {
                 case InterHeaders.CanAuthtificate: this.Authentificate(); break;
+                case InterHeaders.AuthentificationResult: this.OnAuthentificationResult(packet); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
         }
@@ -54,6 +56,18 @@ namespace Hellion.Cluster.ISC
             packet.Write(this.clusterServer.ClusterConfiguration.Ip);
 
             this.Send(packet);
+        }
+
+        /// <summary>
+        /// Process the result of the authentification. 
+        /// </summary>
+        /// <param name="packet"></param>
+        private void OnAuthentificationResult(NetPacketBase packet)
+        {
+            var result = packet.Read<bool>();
+
+            if (result == false)
+                Environment.Exit(0);
         }
     }
 }
