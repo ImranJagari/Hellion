@@ -63,33 +63,38 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.Slot);
                     packet.Write(1); // ??
                     packet.Write(character.MapId);
-                    packet.Write(0x0B + character.Gender);
+                    packet.Write(0x0B + character.Gender); // Model id
                     packet.Write(character.Name);
                     packet.Write(character.PosX);
                     packet.Write(character.PosY);
                     packet.Write(character.PosZ);
                     packet.Write(character.Id);
-                    packet.Write<long>(0); // ??
-                    packet.Write<long>(0); // ??
+                    packet.Write(0); // Party id
+                    packet.Write(0); // Guild id
+                    packet.Write(0); // War Id
+                    packet.Write(0); // SkinSet Id
                     packet.Write(character.HairId);
                     packet.Write(character.HairColor);
                     packet.Write(character.FaceId);
                     packet.Write(character.Gender);
                     packet.Write(character.ClassId);
                     packet.Write(character.Level);
-                    packet.Write(0); // ??
+                    packet.Write(0); // Job Level (Maybe master of hero ?)
                     packet.Write(character.Strength);
                     packet.Write(character.Stamina);
                     packet.Write(character.Dexterity);
                     packet.Write(character.Intelligence);
-                    packet.Write(0); // ??
-                    packet.Write(0); // item count
+                    packet.Write(0); // Mode ??
+                    packet.Write(character.Items.Count);
 
-                    // Loop over items
+                    foreach (var item in character.Items)
+                        packet.Write(item.Id);
+
+                    packet.Write(0); // Count messenger ? Mails ?
                 }
             }
             else
-                packet.Write(0);
+                packet.Write<long>(0);
 
             this.Send(packet);
         }

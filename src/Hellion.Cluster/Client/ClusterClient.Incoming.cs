@@ -81,7 +81,7 @@ namespace Hellion.Cluster.Client
                 Name = name,
                 HairId = hairMeshId,
                 HairColor = hairColor,
-                Gender = (sbyte)gender,
+                Gender = gender,
                 ClassId = job,
                 FaceId = headMesh,
                 Level = this.Server.ClusterConfiguration.DefaultCharacter.Level,
@@ -103,6 +103,7 @@ namespace Hellion.Cluster.Client
             var characters = from x in ClusterServer.DbContext.Characters.Include(c => c.Items)
                              where x.AccountId == account.Id
                              select x;
+            
 
             this.SendCharacterList(authKey, characters?.ToList());
         }

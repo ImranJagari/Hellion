@@ -83,5 +83,46 @@ _Structure:_
 
 ```c#
 [int] header: ClusterHeaders.Outgoing.CharacterList (0xF3)
+[int] authKey
+[int] characterCount
 
+for (int i = 0; i < characterCount; ++i)
+{
+    [int] slot
+    [int] ?? // Blocked character?
+    [int] mapId
+    [int] modelId (0x0B + gender)
+    [string] name
+    [float] posX
+    [float] posY
+    [float] posZ
+    [int] characterId
+    [int] partyId
+    [int] guildId
+    [int] warId
+    [int] skinSetId
+    [int] hairId
+    [int] hairColor
+    [int] faceId
+    [byte] gender
+    [int] classId
+    [int] level
+    [int] ?? // Job level ? (Master or hero ?)
+    [int] strength
+    [int] stamina
+    [int] dexterity
+    [int] intelligence
+    [int] ?? // Mode ?
+    [int] itemCount // (where slotId >= 42)
+
+    for (int j = 0; j < itemCount; ++j)
+        [int] itemId
+
+    [int] messengerCount // Mail ?
+
+    for (int j = 0; j < messengerCount; ++j)
+    {
+        // TODO
+    }
+}
 ```
