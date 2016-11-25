@@ -13,7 +13,7 @@ _Structure:_
 ```c#
 [int] header: ClusterHeaders.Incoming.CharacterListRequest (0xF6)
 [string] buildDate
-[int] time
+[int] authKey
 [string] username
 [string] password
 [int] serverId

@@ -24,8 +24,14 @@ namespace Hellion.Core.Database
             optionsBuilder.UseMySql(connectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
         public DbSet<DbUser> Users { get; set; }
 
         public DbSet<DbCharacter> Characters { get; set; }
+
+        public DbSet<DbItem> Items { get; set; }
     }
 }

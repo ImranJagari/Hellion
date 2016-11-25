@@ -6,6 +6,7 @@ using Hellion.Core.Configuration;
 using Hellion.Core.Database;
 using Hellion.Core.IO;
 using Hellion.Core.Network;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -156,7 +157,7 @@ namespace Hellion.Cluster
                 Log.Info("Connecting to database...");
                 dbContext = new DatabaseContext(this.DatabaseConfiguration);
                 dbContext.Database.EnsureCreated();
-                
+
                 Log.Done("Connected to database!");
             }
             catch (Exception e)

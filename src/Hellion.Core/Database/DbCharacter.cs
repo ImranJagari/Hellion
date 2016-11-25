@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hellion.Core.Database
 {
@@ -61,5 +62,7 @@ namespace Hellion.Core.Database
 
         [Column("posZ")]
         public float PosZ { get; set; }
+
+        public virtual ICollection<DbItem> Items { get; set; }
     }
 }

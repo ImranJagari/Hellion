@@ -51,6 +51,12 @@ namespace Hellion.Core.Configuration
         public ISCConfiguration ISC { get; set; }
 
         /// <summary>
+        /// Gets or sets the rates configuration.
+        /// </summary>
+        [DataMember(Name = "rates")]
+        public RatesConfiguration Rates { get; set; }
+
+        /// <summary>
         /// Creates a new World configuration instance.
         /// </summary>
         public WorldConfiguration()
@@ -58,6 +64,35 @@ namespace Hellion.Core.Configuration
             this.Ip = Global.LocalAddress;
             this.Port = Global.WorldDefaultPort;
             this.ISC = new ISCConfiguration();
+            this.Rates = new RatesConfiguration();
+        }
+    }
+
+    public class RatesConfiguration
+    {
+        /// <summary>
+        /// Gets or sets the experience rate.
+        /// </summary>
+        public float Exp { get; set; }
+
+        /// <summary>
+        /// Gets or sets the drop rate.
+        /// </summary>
+        public float Drop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gold drop rate.
+        /// </summary>
+        public float Gold { get; set; }
+
+        /// <summary>
+        /// Creates a new RatesConfiguration instance.
+        /// </summary>
+        public RatesConfiguration()
+        {
+            this.Exp = 1;
+            this.Drop = 1;
+            this.Gold = 1;
         }
     }
 }

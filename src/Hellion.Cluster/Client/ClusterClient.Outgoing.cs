@@ -47,16 +47,16 @@ namespace Hellion.Cluster.Client
             this.Send(packet);
         }
 
-        private void SendCharacterList(int time, IEnumerable<DbCharacter> characters)
+        private void SendCharacterList(int authKey, IEnumerable<DbCharacter> characters)
         {
             var packet = new FFPacket();
 
             packet.WriteHeader(ClusterHeaders.Outgoing.CharacterList);
-            packet.Write(time);
+            packet.Write(authKey);
 
             if (characters.Any())
             {
-                packet.Write(characters);
+                packet.Write(characters.Count());
 
                 foreach (var character in characters)
                 {
