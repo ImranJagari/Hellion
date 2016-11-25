@@ -40,15 +40,37 @@ namespace Hellion.Cluster.Client
                              where x.Id == account.Id
                              select x;
 
+            
             this.SendCharacterList(time, characters?.ToList());
         }
 
         private void OnCreateCharacter(NetPacketBase packet)
         {
+            var username = packet.Read<string>();
+            var password = packet.Read<string>();
+            var slot = packet.Read<byte>();
+            var name = packet.Read<string>();
+            var faceId = packet.Read<byte>();
+            var costumeId = packet.Read<byte>();
+            var skinSet = packet.Read<byte>();
+            var hairMeshId = packet.Read<byte>();
+            var hairColor = packet.Read<int>();
+            var gender = packet.Read<byte>();
+            var job = packet.Read<byte>();
+            var headMesh = packet.Read<byte>();
+            var bankPassword = packet.Read<int>();
+            var authKey = packet.Read<int>();
+
+
         }
 
         private void OnDeleteCharacter(NetPacketBase packet)
         {
+            var username = packet.Read<string>();
+            var password = packet.Read<string>();
+            var passwordVerification = packet.Read<string>();
+            var characterId = packet.Read<int>();
+            var authKey = packet.Read<int>();
         }
     }
 }

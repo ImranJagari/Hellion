@@ -37,7 +37,7 @@ namespace Hellion.Cluster.Client
             this.Send(packet);
         }
 
-        private void SendWorldId(string ip)
+        private void SendWorldIp(string ip)
         {
             var packet = new FFPacket();
 
