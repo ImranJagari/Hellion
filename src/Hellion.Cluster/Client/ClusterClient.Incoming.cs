@@ -24,12 +24,23 @@ namespace Hellion.Cluster.Client
             var password = packet.Read<string>();
             var serverId = packet.Read<int>();
 
-            var character = from x in ClusterServer.DbContext.Characters
-                            where x.Id == 1
-                            select x;
+            var account = (from x in ClusterServer.DbContext.Users
+                           where x.Username.ToLower() == username.ToLower()
+                           where x.Password.ToLower() == password.ToLower()
+                           where x.Authority != 0
+                           select x).FirstOrDefault();
 
-            var character2 = new Character();
-            character2.FromDbCharacter(character.FirstOrDefault());
+            if (account == null)
+            {
+                this.Server.RemoveClient(this);
+                return;
+            }
+
+            var characters = from x in ClusterServer.DbContext.Characters
+                             where x.Id == account.Id
+                             select x;
+
+            this.SendCharacterList(time, characters?.ToList());
         }
 
         private void OnCreateCharacter(NetPacketBase packet)

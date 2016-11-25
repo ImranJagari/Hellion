@@ -1,4 +1,5 @@
 ﻿using Hellion.Core.Data.Headers;
+using Hellion.Core.Database;
 using Hellion.Core.Network;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,63 @@ namespace Hellion.Cluster.Client
 
             packet.WriteHeader(ClusterHeaders.Outgoing.Pong);
             packet.Write(time);
+
+            this.Send(packet);
+        }
+
+        private void SendWorldId(string ip)
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(ClusterHeaders.Outgoing.GameServerIP);
+            packet.Write(ip);
+
+            this.Send(packet);
+        }
+
+        private void SendCharacterList(int time, IEnumerable<DbCharacter> characters)
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(ClusterHeaders.Outgoing.CharacterList);
+            packet.Write(time);
+
+            if (characters.Any())
+            {
+                packet.Write(characters);
+
+                foreach (var character in characters)
+                {
+                    packet.Write(character.Slot);
+                    packet.Write(1); // ??
+                    packet.Write(character.MapId);
+                    packet.Write(0x0B + character.Gender);
+                    packet.Write(character.Name);
+                    packet.Write(character.PosX);
+                    packet.Write(character.PosY);
+                    packet.Write(character.PosZ);
+                    packet.Write(character.Id);
+                    packet.Write<long>(0); // ??
+                    packet.Write<long>(0); // ??
+                    packet.Write(character.HairId);
+                    packet.Write(character.HairColor);
+                    packet.Write(character.FaceId);
+                    packet.Write(character.Gender);
+                    packet.Write(character.ClassId);
+                    packet.Write(character.Level);
+                    packet.Write(0); // ??
+                    packet.Write(character.Strength);
+                    packet.Write(character.Stamina);
+                    packet.Write(character.Dexterity);
+                    packet.Write(character.Intelligence);
+                    packet.Write(0); // ??
+                    packet.Write(0); // item count
+
+                    // Loop over items
+                }
+            }
+            else
+                packet.Write(0);
 
             this.Send(packet);
         }

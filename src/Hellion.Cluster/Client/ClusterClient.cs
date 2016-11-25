@@ -62,9 +62,9 @@ namespace Hellion.Cluster.Client
             switch (packetHeader)
             {
                 case ClusterHeaders.Incoming.Ping: this.OnPing(packet); break;
-                case ClusterHeaders.Incoming.CharacterListRequest: this.OnCharacterListRequest(packet); break;
                 case ClusterHeaders.Incoming.CreateCharacter: this.OnCreateCharacter(packet); break;
                 case ClusterHeaders.Incoming.DeleteCharacter: this.OnDeleteCharacter(packet); break;
+                case ClusterHeaders.Incoming.CharacterListRequest: this.OnCharacterListRequest(packet); break;
 
                 default: FFPacket.UnknowPacket<ClusterHeaders.Incoming>(packetHeaderNumber, 2); break;
             }

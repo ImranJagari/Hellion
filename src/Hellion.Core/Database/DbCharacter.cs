@@ -25,5 +25,41 @@ namespace Hellion.Core.Database
 
         [Column("gold")]
         public int Gold { get; set; }
+
+        [Column("slot")]
+        public int Slot { get; set; }
+
+        [Column("strength")]
+        public int Strength { get; set; }
+
+        [Column("stamina")]
+        public int Stamina { get; set; }
+
+        [Column("dexterity")]
+        public int Dexterity { get; set; }
+
+        [Column("intelligence")]
+        public int Intelligence { get; set; }
+
+        [Column("hairId")]
+        public int HairId { get; set; }
+
+        [Column("hairColor")]
+        public int HairColor { get; set; }
+
+        [Column("faceId")]
+        public int FaceId { get; set; }
+
+        [Column("mapId")]
+        public int MapId { get; set; }
+
+        [Column("posX")]
+        public float PosX { get; set; }
+
+        [Column("posY")]
+        public float PosY { get; set; }
+
+        [Column("posZ")]
+        public float PosZ { get; set; }
     }
 }
