@@ -1,7 +1,9 @@
-﻿using Hellion.Core.Data.Headers;
+﻿using Hellion.Core.Cryptography;
+using Hellion.Core.Data.Headers;
 using Hellion.Core.IO;
 using Hellion.Core.Network;
 using System.Linq;
+using System.Text;
 
 namespace Hellion.Login.Client
 {
@@ -19,7 +21,8 @@ namespace Hellion.Login.Client
 
             if (this.Server.LoginConfiguration.PasswordEncryption)
             {
-                // TODO encryption using rinjdael algorithm
+                var key = Encoding.ASCII.GetBytes("dldhsvmflvm").Concat(Enumerable.Repeat((byte)0, 5).ToArray()).ToArray();
+                password = Rijndael.Decrypt(packet.Read<byte[]>(), key);
             }
             else
                 password = packet.Read<string>();

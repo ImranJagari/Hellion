@@ -3,7 +3,7 @@
   "port": 23000,
   "buildVersion": "20100412",
   "accountVerification": true,
-  "passwordEncryption": false,
+  "passwordEncryption": true,
   "encryptionKey": "dldhsvmflvm",
   "isc": {
     "ip": "127.0.0.1",
