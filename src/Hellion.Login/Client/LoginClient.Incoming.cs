@@ -15,7 +15,14 @@ namespace Hellion.Login.Client
         {
             var buildVersion = packet.Read<string>();
             var username = packet.Read<string>();
-            var password = packet.Read<string>();
+            string password = string.Empty;
+
+            if (this.Server.LoginConfiguration.PasswordEncryption)
+            {
+                // TODO encryption using rinjdael algorithm
+            }
+            else
+                password = packet.Read<string>();
 
             Log.Debug("Recieved from client: buildVersion: {0}, username: {1}, password: {2}", buildVersion, username, password);
 
@@ -72,7 +79,7 @@ namespace Hellion.Login.Client
                     this.Server.RemoveClient(connectedClient);
                     return;
                 }
-				
+
                 this.SendServerList();
             }
         }

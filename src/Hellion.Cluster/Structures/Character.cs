@@ -15,7 +15,7 @@ namespace Hellion.Cluster.Structures
 
         public string Name { get; set; }
 
-        public sbyte Gender { get; set; }
+        public int Gender { get; set; }
 
         public int Level { get; set; }
 
@@ -46,6 +46,26 @@ namespace Hellion.Cluster.Structures
         public float PosY { get; set; }
 
         public float PosZ { get; set; }
+
+        public List<int> ItemsId { get; set; }
+
+        public object Items { get; set; }
+
+        public Character()
+        {
+            this.ItemsId = new List<int>();
+        }
+
+        public Character(DbCharacter dbCharacter)
+        {
+            this.FromDbCharacter(dbCharacter);
+
+            this.ItemsId = new List<int>();
+
+            if (dbCharacter.Items.Any())
+                foreach (var item in dbCharacter.Items)
+                    this.ItemsId.Add(item.Id);
+        }
 
         public void FromDbCharacter(DbCharacter dbCharacter)
         {

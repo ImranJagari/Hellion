@@ -1,4 +1,5 @@
-﻿using Hellion.Core.Data.Headers;
+﻿using Hellion.Cluster.Structures;
+using Hellion.Core.Data.Headers;
 using Hellion.Core.Database;
 using Hellion.Core.Network;
 using System;
@@ -47,7 +48,7 @@ namespace Hellion.Cluster.Client
             this.Send(packet);
         }
 
-        private void SendCharacterList(int authKey, IEnumerable<DbCharacter> characters)
+        private void SendCharacterList(int authKey, IEnumerable<Character> characters)
         {
             var packet = new FFPacket();
 
@@ -57,13 +58,12 @@ namespace Hellion.Cluster.Client
             if (characters.Any())
             {
                 packet.Write(characters.Count());
-
                 foreach (var character in characters)
                 {
                     packet.Write(character.Slot);
-                    packet.Write(1); // ??
+                    packet.Write(1); // this number represents the selected character in the window
                     packet.Write(character.MapId);
-                    packet.Write(0x0B + character.Gender); // Model id
+                    packet.Write(0x0B); // Model id
                     packet.Write(character.Name);
                     packet.Write(character.PosX);
                     packet.Write(character.PosY);
@@ -76,7 +76,7 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.HairId);
                     packet.Write(character.HairColor);
                     packet.Write(character.FaceId);
-                    packet.Write(character.Gender);
+                    packet.Write<byte>((byte)character.Gender);
                     packet.Write(character.ClassId);
                     packet.Write(character.Level);
                     packet.Write(0); // Job Level (Maybe master of hero ?)
@@ -85,13 +85,22 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.Dexterity);
                     packet.Write(character.Intelligence);
                     packet.Write(0); // Mode ??
-                    packet.Write(character.Items.Count);
+                    packet.Write(character.ItemsId.Count);
 
-                    foreach (var item in character.Items)
-                        packet.Write(item.Id);
-
-                    packet.Write(0); // Count messenger ? Mails ?
+                    foreach (var item in character.ItemsId)
+                        packet.Write(item);
                 }
+
+                packet.Write(0);
+
+                // Messenger ?
+                //packet.Write(characters.Count());
+                //for (int i = 0; i < characters.Count(); ++i)
+                //{
+                //    packet.Write(i);
+                //    packet.Write(0);
+                //    packet.Write<byte>(0);
+                //}
             }
             else
                 packet.Write<long>(0);

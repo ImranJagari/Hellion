@@ -41,26 +41,31 @@ namespace Hellion.Cluster.Client
             var characters = from x in ClusterServer.DbContext.Characters.Include(c => c.Items)
                              where x.AccountId == account.Id
                              select x;
+
+            var test = new List<Character>();
+
+            foreach (var c in characters)
+                test.Add(new Character(c));
             
-            this.SendCharacterList(authKey, characters?.ToList());
+            this.SendCharacterList(authKey, test);
         }
 
         private void OnCreateCharacter(NetPacketBase packet)
         {
             var username = packet.Read<string>();
             var password = packet.Read<string>();
-            var slot = packet.Read<byte>();
+            int slot = packet.Read<byte>();
             var name = packet.Read<string>();
-            var faceId = packet.Read<byte>();
-            var costumeId = packet.Read<byte>();
-            var skinSet = packet.Read<byte>();
-            var hairMeshId = packet.Read<byte>();
-            var hairColor = packet.Read<int>();
-            var gender = packet.Read<byte>();
-            var job = packet.Read<byte>();
-            var headMesh = packet.Read<byte>();
-            var bankPassword = packet.Read<int>();
-            var authKey = packet.Read<int>();
+            int faceId = packet.Read<byte>();
+            int costumeId = packet.Read<byte>();
+            int skinSet = packet.Read<byte>();
+            int hairMeshId = packet.Read<byte>();
+            int hairColor = packet.Read<int>();
+            int gender = Math.Min((byte)1, Math.Max((byte)0, packet.Read<byte>()));
+            int job = packet.Read<byte>();
+            int headMesh = packet.Read<byte>();
+            int bankPassword = packet.Read<int>();
+            int authKey = packet.Read<int>();
 
             var account = (from x in ClusterServer.DbContext.Users
                            where x.Username.ToLower() == username.ToLower()
@@ -82,7 +87,7 @@ namespace Hellion.Cluster.Client
                 HairId = hairMeshId,
                 HairColor = hairColor,
                 Gender = gender,
-                ClassId = job,
+                ClassId = 0,
                 FaceId = headMesh,
                 Level = this.Server.ClusterConfiguration.DefaultCharacter.Level,
                 Strength = this.Server.ClusterConfiguration.DefaultCharacter.Strength,
@@ -98,14 +103,18 @@ namespace Hellion.Cluster.Client
 
             ClusterServer.DbContext.Characters.Add(character);
             ClusterServer.DbContext.SaveChanges();
-            
+
 
             var characters = from x in ClusterServer.DbContext.Characters.Include(c => c.Items)
                              where x.AccountId == account.Id
                              select x;
-            
 
-            this.SendCharacterList(authKey, characters?.ToList());
+            var test = new List<Character>();
+
+            foreach (var c in characters)
+                test.Add(new Character(c));
+
+            this.SendCharacterList(authKey, test);
         }
 
         private void OnDeleteCharacter(NetPacketBase packet)

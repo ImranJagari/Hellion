@@ -37,6 +37,18 @@ namespace Hellion.Core.Configuration
         public bool AccountVerification { get; set; }
 
         /// <summary>
+        /// Gets or sets the value if the login password is encrypted or not.
+        /// </summary>
+        [DataMember(Name = "passwordEcryption")]
+        public bool PasswordEncryption { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password encryption key.
+        /// </summary>
+        [DataMember(Name = "encryptionKey")]
+        public string EncryptionKey { get; set; }
+
+        /// <summary>
         /// Gets or sets the ISC configuration.
         /// </summary>
         [DataMember(Name = "isc")]

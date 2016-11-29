@@ -73,6 +73,8 @@ namespace Hellion.Core.Network
         {
             if (typeof(T) == typeof(string))
                 return (T)(object)this.ReadString();
+            //if (typeof(T) == typeof(byte[]))
+            //    return (T)(object)this.memoryReader.ReadBytes(16 * 42);
 
             return base.Read<T>();
         }

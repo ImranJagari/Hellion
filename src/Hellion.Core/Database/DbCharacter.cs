@@ -16,7 +16,7 @@ namespace Hellion.Core.Database
         public string Name { get; set; }
 
         [Column("gender")]
-        public byte Gender { get; set; }
+        public int Gender { get; set; }
 
         [Column("level")]
         public int Level { get; set; }

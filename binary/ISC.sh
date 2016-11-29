@@ -1,3 +1,4 @@
 #!/bin/bash
 
-dotnet run Hellion.ISC.dll
+cd ../src/Hellion.ISC
+dotnet run
