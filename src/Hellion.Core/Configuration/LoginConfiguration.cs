@@ -39,7 +39,7 @@ namespace Hellion.Core.Configuration
         /// <summary>
         /// Gets or sets the value if the login password is encrypted or not.
         /// </summary>
-        [DataMember(Name = "passwordEcryption")]
+        [DataMember(Name = "passwordEncryption")]
         public bool PasswordEncryption { get; set; }
 
         /// <summary>

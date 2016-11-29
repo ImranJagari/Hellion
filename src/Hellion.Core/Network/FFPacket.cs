@@ -92,6 +92,16 @@ namespace Hellion.Core.Network
         }
 
         /// <summary>
+        /// Read a specified number of bytes.
+        /// </summary>
+        /// <param name="count">Number of bytes to read</param>
+        /// <returns></returns>
+        public byte[] ReadBytes(int count)
+        {
+            return this.memoryReader.ReadBytes(count);
+        }
+
+        /// <summary>
         /// Write FF string.
         /// </summary>
         /// <param name="value"></param>

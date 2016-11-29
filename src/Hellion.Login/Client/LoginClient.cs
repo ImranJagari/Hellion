@@ -1,10 +1,12 @@
 ﻿using Ether.Network;
 using Ether.Network.Packets;
 using Hellion.Core;
+using Hellion.Core.Cryptography;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.Network;
 using System.Linq;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Hellion.Login.Client
 {
@@ -100,6 +102,19 @@ namespace Hellion.Login.Client
                 count += cluster.Worlds.Count + 1; // plus one is for the current cluster
 
             return count;
+        }
+
+        /// <summary>
+        /// Decrypt the incoming password using the Rijndael algorithm.
+        /// </summary>
+        /// <param name="passwordData">Password as byte array</param>
+        /// <returns></returns>
+        private string DecryptPassword(byte[] passwordData)
+        {
+            var encryptionKey = this.Server.LoginConfiguration.EncryptionKey;
+            var key = Encoding.ASCII.GetBytes(encryptionKey).Concat(Enumerable.Repeat((byte)0, 5).ToArray()).ToArray();
+
+            return Rijndael.Decrypt(passwordData, key).Trim('\0');
         }
     }
 }

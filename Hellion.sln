@@ -35,6 +35,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.Cluster", "src\Hell
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hellion.World", "src\Hellion.World\Hellion.World.xproj", "{9FD27F2B-8F25-4A1A-8F94-E374943C94A1}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ether.Network", "..\Ether.Network\src\Ether.Network\Ether.Network.xproj", "{7D878116-CEF9-4618-BF86-113E76BCD2E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9FD27F2B-8F25-4A1A-8F94-E374943C94A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD27F2B-8F25-4A1A-8F94-E374943C94A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD27F2B-8F25-4A1A-8F94-E374943C94A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D878116-CEF9-4618-BF86-113E76BCD2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D878116-CEF9-4618-BF86-113E76BCD2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D878116-CEF9-4618-BF86-113E76BCD2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D878116-CEF9-4618-BF86-113E76BCD2E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
