@@ -9,6 +9,12 @@ namespace Hellion.Core.Cryptography
 {
     public static class Rijndael
     {
+        /// <summary>
+        /// Decrypt data with a key.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string Decrypt(byte[] data, byte[] key)
         {
             string decrypted = string.Empty;

@@ -15,7 +15,7 @@ namespace Hellion.Cluster.Structures
 
         public string Name { get; set; }
 
-        public int Gender { get; set; }
+        public byte Gender { get; set; }
 
         public int Level { get; set; }
 
@@ -35,7 +35,7 @@ namespace Hellion.Cluster.Structures
 
         public int HairId { get; set; }
 
-        public int HairColor { get; set; }
+        public uint HairColor { get; set; }
 
         public int FaceId { get; set; }
 

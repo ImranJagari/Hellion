@@ -61,9 +61,9 @@ namespace Hellion.Cluster.Client
                 foreach (var character in characters)
                 {
                     packet.Write(character.Slot);
-                    packet.Write(1); // this number represents the selected character in the window
+                    packet.Write(2); // this number represents the selected character in the window
                     packet.Write(character.MapId);
-                    packet.Write(0x0B); // Model id
+                    packet.Write(0x0B + character.Gender); // Model id
                     packet.Write(character.Name);
                     packet.Write(character.PosX);
                     packet.Write(character.PosY);
@@ -76,7 +76,7 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.HairId);
                     packet.Write(character.HairColor);
                     packet.Write(character.FaceId);
-                    packet.Write<byte>((byte)character.Gender);
+                    packet.Write<int>(character.Gender);
                     packet.Write(character.ClassId);
                     packet.Write(character.Level);
                     packet.Write(0); // Job Level (Maybe master of hero ?)

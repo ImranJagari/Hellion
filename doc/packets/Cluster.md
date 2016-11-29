@@ -117,12 +117,12 @@ for (int i = 0; i < characterCount; ++i)
 
     for (int j = 0; j < itemCount; ++j)
         [int] itemId
+}
 
-    [int] messengerCount // Mail ?
+[int] messengerCount // Mail ?
 
-    for (int j = 0; j < messengerCount; ++j)
-    {
-        // TODO
-    }
+for (int j = 0; j < messengerCount; ++j)
+{
+    // TODO
 }
 ```

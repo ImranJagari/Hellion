@@ -107,9 +107,13 @@ namespace Hellion.Core.Network
         /// <param name="value"></param>
         private void WriteString(string value)
         {
-            this.Write(value.Length);
-            if (value.Length > 0)
-                this.Write(Encoding.GetEncoding(0).GetBytes(value));
+            int length = value.Length;
+            Write(length);
+            for (int i = 0; i < length; i++)
+                this.Write((byte)value[i]);
+            //this.Write(value.Length);
+            //if (value.Length > 0)
+            //    this.Write(Encoding.GetEncoding(0).GetBytes(value));
         }
 
         /// <summary>

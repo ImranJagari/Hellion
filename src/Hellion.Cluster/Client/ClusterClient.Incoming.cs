@@ -60,8 +60,8 @@ namespace Hellion.Cluster.Client
             int costumeId = packet.Read<byte>();
             int skinSet = packet.Read<byte>();
             int hairMeshId = packet.Read<byte>();
-            int hairColor = packet.Read<int>();
-            int gender = Math.Min((byte)1, Math.Max((byte)0, packet.Read<byte>()));
+            uint hairColor = packet.Read<uint>();
+            var gender = Math.Min((byte)1, Math.Max((byte)0, packet.Read<byte>()));
             int job = packet.Read<byte>();
             int headMesh = packet.Read<byte>();
             int bankPassword = packet.Read<int>();
