@@ -43,6 +43,14 @@ namespace Hellion.Login.ISC
         }
 
         /// <summary>
+        /// On client disconnected.
+        /// </summary>
+        protected override void OnClientDisconnected()
+        {
+            Log.Info("Disconnected from ISC.");
+        }
+
+        /// <summary>
         /// Authentificates this LoginServer.
         /// </summary>
         private void Authentificate()

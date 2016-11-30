@@ -84,6 +84,7 @@ namespace Hellion.Cluster.Client
                 AccountId = account.Id,
                 Slot = slot,
                 Name = name,
+                SkinSetId = skinSet,
                 HairId = hairMeshId,
                 HairColor = hairColor,
                 Gender = gender,

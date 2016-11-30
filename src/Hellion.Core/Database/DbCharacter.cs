@@ -42,6 +42,9 @@ namespace Hellion.Core.Database
         [Column("intelligence")]
         public int Intelligence { get; set; }
 
+        [Column("skinSetId")]
+        public int SkinSetId { get; set; }
+
         [Column("hairId")]
         public int HairId { get; set; }
 

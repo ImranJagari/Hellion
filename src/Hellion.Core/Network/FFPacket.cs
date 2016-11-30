@@ -116,6 +116,11 @@ namespace Hellion.Core.Network
             //    this.Write(Encoding.GetEncoding(0).GetBytes(value));
         }
 
+        public void WriteFloat(float f)
+        {
+            this.memoryWriter.Write(f);
+        }
+
         /// <summary>
         /// Indicates if the packet of type T is unknown or just not implemented.
         /// </summary>

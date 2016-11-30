@@ -40,6 +40,14 @@ namespace Hellion.World.ISC
         }
 
         /// <summary>
+        /// On client disconnected.
+        /// </summary>
+        protected override void OnClientDisconnected()
+        {
+            Log.Info("Disconnected from ISC.");
+        }
+
+        /// <summary>
         /// Authentificate the world server.
         /// </summary>
         private void Authentificate()

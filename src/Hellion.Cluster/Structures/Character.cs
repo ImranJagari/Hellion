@@ -33,6 +33,8 @@ namespace Hellion.Cluster.Structures
 
         public int Intelligence { get; set; }
 
+        public int SkinSetId { get; set; }
+
         public int HairId { get; set; }
 
         public uint HairColor { get; set; }

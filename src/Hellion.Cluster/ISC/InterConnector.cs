@@ -42,6 +42,14 @@ namespace Hellion.Cluster.ISC
         }
 
         /// <summary>
+        /// On client disconnected.
+        /// </summary>
+        protected override void OnClientDisconnected()
+        {
+            Log.Info("Disconnected from ISC.");
+        }
+
+        /// <summary>
         /// Authentificate the cluster server.
         /// </summary>
         private void Authentificate()
