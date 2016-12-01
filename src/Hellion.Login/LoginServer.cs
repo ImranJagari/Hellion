@@ -2,6 +2,7 @@
 using Ether.Network.Packets;
 using Hellion.Core.Configuration;
 using Hellion.Core.Database;
+using Hellion.Core.Database.Repository;
 using Hellion.Core.IO;
 using Hellion.Core.ISC.Structures;
 using Hellion.Core.Network;
@@ -23,19 +24,18 @@ namespace Hellion.Login
         private const string DatabaseConfigurationFile = "config/database.json";
 
         /// <summary>
-        /// Gets the Database context.
+        /// Gets the user repository.
         /// </summary>
-        public static DatabaseContext DbContext
+        public static IRepository<DbUser> UserRepository
         {
             get
             {
-                lock (syncDatabase)
-                {
-                    return dbContext;
-                }
+                if (userRepository == null)
+                    userRepository = new UserRepository(dbContext);
+                return userRepository;
             }
         }
-        private static object syncDatabase = new object();
+        private static IRepository<DbUser> userRepository;
         private static DatabaseContext dbContext = null;
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Hellion.Login
                 Log.Error("Cannot connect to ISC. {0}", e.Message);
                 Environment.Exit(0);
             }
-            
+
             Log.Done("Connected to Inter-Server!");
         }
     }

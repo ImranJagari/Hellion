@@ -10,9 +10,9 @@
 
     public enum InterHeaders
     {
-        CanAuthtificate = 0x00,
-        Authentification = 0x01,
-        AuthentificationResult = 0x02,
+        CanAuthticate = 0x00,
+        Authentication = 0x01,
+        AuthenticationResult = 0x02,
         UpdateServerList = 0x03,
     }
 }

@@ -34,8 +34,8 @@ namespace Hellion.Login.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.CanAuthtificate: this.Authentificate(); break;
-                case InterHeaders.AuthentificationResult: this.OnAuthentificationResult(packet); break;
+                case InterHeaders.CanAuthticate: this.Authenticate(); break;
+                case InterHeaders.AuthenticationResult: this.OnAuthenticationResult(packet); break;
                 case InterHeaders.UpdateServerList: this.OnUpdateServerList(packet); break;
 
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
@@ -51,20 +51,24 @@ namespace Hellion.Login.ISC
         }
 
         /// <summary>
-        /// Authentificates this LoginServer.
+        /// Authenticates this LoginServer.
         /// </summary>
-        private void Authentificate()
+        private void Authenticate()
         {
             var packet = new NetPacket();
 
-            packet.Write((int)InterHeaders.Authentification);
+            packet.Write((int)InterHeaders.Authentication);
             packet.Write((int)InterServerType.Login);
             packet.Write(this.loginServer.LoginConfiguration.ISC.Password);
 
             this.Send(packet);
         }
 
-        private void OnAuthentificationResult(NetPacketBase packet)
+        /// <summary>
+        /// Recieve the authentication result.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void OnAuthenticationResult(NetPacketBase packet)
         {
             var result = packet.Read<bool>();
 

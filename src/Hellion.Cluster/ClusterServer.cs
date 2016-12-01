@@ -4,6 +4,7 @@ using Hellion.Cluster.Client;
 using Hellion.Cluster.ISC;
 using Hellion.Core.Configuration;
 using Hellion.Core.Database;
+using Hellion.Core.Database.Repository;
 using Hellion.Core.IO;
 using Hellion.Core.Network;
 using Microsoft.EntityFrameworkCore;
@@ -20,22 +21,8 @@ namespace Hellion.Cluster
     {
         private const string ClusterConfigurationFile = "config/cluster.json";
         private const string DatabaseConfigurationFile = "config/database.json";
-
-        /// <summary>
-        /// Gets the Database context.
-        /// </summary>
-        public static DatabaseContext DbContext
-        {
-            get
-            {
-                lock (syncDatabase)
-                {
-                    return dbContext;
-                }
-            }
-        }
-        private static object syncDatabase = new object();
-        private static DatabaseContext dbContext = null;
+        
+        private DatabaseContext dbContext = null;
 
         private InterConnector connector;
         private Thread iscThread;
@@ -155,8 +142,10 @@ namespace Hellion.Cluster
             try
             {
                 Log.Info("Connecting to database...");
-                dbContext = new DatabaseContext(this.DatabaseConfiguration);
-                dbContext.Database.EnsureCreated();
+                this.dbContext = new DatabaseContext(this.DatabaseConfiguration);
+                this.dbContext.Database.EnsureCreated();
+
+                DatabaseService.InitializeDatabase(this.dbContext);
 
                 Log.Done("Connected to database!");
             }

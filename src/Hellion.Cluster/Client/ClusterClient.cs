@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Ether.Network.Packets;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.Network;
+using Hellion.Core.Database;
 
 namespace Hellion.Cluster.Client
 {
@@ -70,6 +71,17 @@ namespace Hellion.Cluster.Client
             }
 
             base.HandleMessage(packet);
+        }
+
+        private DbUser GetUserAccount(string username, string password)
+        {
+            var accounts = from x in DatabaseService.Users.GetAll()
+                           where x.Username.ToLower() == username.ToLower()
+                           where x.Password.ToLower() == password.ToLower()
+                           where x.Authority != 0
+                           select x;
+
+            return accounts.FirstOrDefault();
         }
     }
 }

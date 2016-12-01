@@ -29,6 +29,7 @@
             AccountUnderMaintenance = 0x85,
             ServerError = 0x88,
             ResourceWasFalsified = 0x8A,
+
         }
     }
 }

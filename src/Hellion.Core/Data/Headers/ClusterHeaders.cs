@@ -20,5 +20,11 @@
             LoginMessage = 0xFE,
             WorldTransfer = 0xFF05,
         }
+
+        public enum Errors
+        {
+            NameAlreadyInUse = 0x524,
+            PasswordDontMatch = 0x527,
+        }
     }
 }

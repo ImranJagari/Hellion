@@ -50,7 +50,7 @@ namespace Hellion.ISC
         {
             var packet = new NetPacket();
 
-            packet.Write((int)InterHeaders.CanAuthtificate);
+            packet.Write((int)InterHeaders.CanAuthticate);
 
             this.Send(packet);
         }
@@ -66,7 +66,7 @@ namespace Hellion.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.Authentification: this.OnAuthentification(packet); break;
+                case InterHeaders.Authentication: this.OnAuthentification(packet); break;
 
                 default:
                     Log.Warning("Unknow packet: 0x{0}", packetHeaderNumber.ToString("X2"));

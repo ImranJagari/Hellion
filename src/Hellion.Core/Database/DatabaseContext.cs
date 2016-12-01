@@ -1,5 +1,7 @@
 ﻿using Hellion.Core.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq;
 
 namespace Hellion.Core.Database
 {
@@ -26,6 +28,13 @@ namespace Hellion.Core.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<DbCharacter>().
+            //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            //{
+            //    relationship.DeleteBehavior = DeleteBehavior.Cascade;
+            //}
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<DbUser> Users { get; set; }

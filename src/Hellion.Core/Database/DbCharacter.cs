@@ -67,5 +67,10 @@ namespace Hellion.Core.Database
         public float PosZ { get; set; }
 
         public virtual ICollection<DbItem> Items { get; set; }
+
+        public DbCharacter()
+        {
+            this.Items = new HashSet<DbItem>();
+        }
     }
 }

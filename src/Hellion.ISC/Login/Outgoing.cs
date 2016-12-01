@@ -16,7 +16,7 @@ namespace Hellion.ISC
         {
             var packet = new NetPacket();
 
-            packet.Write((int)InterHeaders.AuthentificationResult);
+            packet.Write((int)InterHeaders.AuthenticationResult);
             packet.Write(result);
 
             this.Send(packet);

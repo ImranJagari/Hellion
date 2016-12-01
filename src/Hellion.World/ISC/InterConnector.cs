@@ -33,8 +33,8 @@ namespace Hellion.World.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.CanAuthtificate: this.Authentificate(); break;
-                case InterHeaders.AuthentificationResult: this.OnAuthentificationResult(packet); break;
+                case InterHeaders.CanAuthticate: this.Authentificate(); break;
+                case InterHeaders.AuthenticationResult: this.OnAuthentificationResult(packet); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
         }
@@ -48,13 +48,13 @@ namespace Hellion.World.ISC
         }
 
         /// <summary>
-        /// Authentificate the world server.
+        /// Authenticate the world server.
         /// </summary>
-        private void Authentificate()
+        private void Authenticate()
         {
             var packet = new NetPacket();
 
-            packet.Write((int)InterHeaders.Authentification);
+            packet.Write((int)InterHeaders.Authentication);
             packet.Write((int)InterServerType.World);
             packet.Write(this.worldServer.WorldConfiguration.ISC.Password);
             packet.Write(this.worldServer.WorldConfiguration.ClusterId);
@@ -68,10 +68,10 @@ namespace Hellion.World.ISC
         }
 
         /// <summary>
-        /// Process the result of the authentification. 
+        /// Process the result of the authentication. 
         /// </summary>
         /// <param name="packet"></param>
-        private void OnAuthentificationResult(NetPacketBase packet)
+        private void OnAuthenticationResult(NetPacketBase packet)
         {
             var result = packet.Read<bool>();
 

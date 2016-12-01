@@ -23,11 +23,8 @@ namespace Hellion.Login.Client
                 password = packet.Read<string>();
 
             Log.Debug("Recieved from client: buildVersion: {0}, username: {1}, password: {2}", buildVersion, username, password);
-
-            // Database request
-            var user = (from x in LoginServer.DbContext.Users
-                        where x.Username == username
-                        select x).FirstOrDefault();
+            
+            var user = LoginServer.UserRepository.Get(x => x.Username.ToLower() == username.ToLower());
 
             if (user == null)
             {

@@ -38,6 +38,29 @@ namespace Hellion.Cluster.Client
             this.Send(packet);
         }
 
+        /// <summary>
+        /// Sends a cluster error to the client.
+        /// </summary>
+        /// <param name="code"></param>
+        private void SendClusterError(ClusterHeaders.Errors code)
+        {
+            this.SendClusterMessage((int)code);
+        }
+
+        /// <summary>
+        /// Sends a cluster message to the client with the specific code.
+        /// </summary>
+        /// <param name="code"></param>
+        private void SendClusterMessage(int code)
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(ClusterHeaders.Outgoing.LoginMessage);
+            packet.Write(code);
+
+            this.Send(packet);
+        }
+
         private void SendWorldIp(string ip)
         {
             var packet = new FFPacket();
@@ -48,7 +71,12 @@ namespace Hellion.Cluster.Client
             this.Send(packet);
         }
 
-        private void SendCharacterList(int authKey, IEnumerable<Character> characters)
+        /// <summary>
+        /// Send the character list to the client.
+        /// </summary>
+        /// <param name="authKey">authentication key</param>
+        /// <param name="characters"></param>
+        private void SendCharacterList(int authKey, IEnumerable<DbCharacter> characters)
         {
             var packet = new FFPacket();
 
@@ -85,10 +113,10 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.Dexterity);
                     packet.Write(character.Intelligence);
                     packet.Write(0); // Mode ??
-                    packet.Write(character.ItemsId.Count);
+                    packet.Write(character.Items.Count);
 
-                    foreach (var item in character.ItemsId)
-                        packet.Write(item);
+                    foreach (var item in character.Items)
+                        packet.Write(item.Id);
                 }
 
                 // Messenger?
