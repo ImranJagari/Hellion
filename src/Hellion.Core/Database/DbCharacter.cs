@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hellion.Core.Database
@@ -6,6 +7,8 @@ namespace Hellion.Core.Database
     [Table("characters")]
     public class DbCharacter
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }
 
@@ -65,6 +68,9 @@ namespace Hellion.Core.Database
 
         [Column("posZ")]
         public float PosZ { get; set; }
+
+        [Column("bankCode")]
+        public string BankCode { get; set; }
 
         public virtual ICollection<DbItem> Items { get; set; }
 

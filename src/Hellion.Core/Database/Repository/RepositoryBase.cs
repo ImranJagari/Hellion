@@ -30,7 +30,8 @@ namespace Hellion.Core.Database.Repository
         {
             lock (syncDbContext)
             {
-                value = this.dbSet.Add(value).Entity;
+                this.dbSet.Add(value);
+                //value = this.dbSet.Add(value).Entity;
                 this.Save();
             }
         }
@@ -70,10 +71,12 @@ namespace Hellion.Core.Database.Repository
         /// <returns></returns>
         public virtual T Get(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes)
         {
-            foreach (var include in includes)
-                this.dbSet.Include(include);
+            IQueryable<T> set = this.dbSet;
 
-            return this.dbSet.Where(expression).FirstOrDefault();
+            foreach (var include in includes)
+                set = this.dbSet.Include(include);
+
+            return set.Where(expression).FirstOrDefault();
         }
 
         /// <summary>
@@ -82,10 +85,12 @@ namespace Hellion.Core.Database.Repository
         /// <returns></returns>
         public virtual IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            foreach (var include in includes)
-                this.dbSet.Include(include);
+            IQueryable<T> set = this.dbSet;
 
-            return this.dbSet;
+            foreach (var include in includes)
+                set = this.dbSet.Include(include);
+
+            return set;
         }
 
         /// <summary>

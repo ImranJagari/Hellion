@@ -9,8 +9,12 @@ namespace Hellion.Core.Database
     [Table("items")]
     public class DbItem
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }
+
+        [Column("itemId")]
+        public int ItemId { get; set; }
 
         [Column("characterId")]
         public int CharacterId { get; set; }

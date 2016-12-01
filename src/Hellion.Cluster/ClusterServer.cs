@@ -146,7 +146,6 @@ namespace Hellion.Cluster
                 this.dbContext.Database.EnsureCreated();
 
                 DatabaseService.InitializeDatabase(this.dbContext);
-
                 Log.Done("Connected to database!");
             }
             catch (Exception e)

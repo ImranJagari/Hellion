@@ -116,7 +116,7 @@ namespace Hellion.Cluster.Client
                     packet.Write(character.Items.Count);
 
                     foreach (var item in character.Items)
-                        packet.Write(item.Id);
+                        packet.Write(item.ItemId);
                 }
 
                 // Messenger?

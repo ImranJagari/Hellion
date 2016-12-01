@@ -28,10 +28,14 @@ namespace Hellion.Core.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<DbCharacter>().
+            modelBuilder.Entity<DbItem>()
+                .HasOne(i => i.Character)
+                .WithMany(c => c.Items)
+                .HasForeignKey(i => i.CharacterId);
+
             //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             //{
-            //    relationship.DeleteBehavior = DeleteBehavior.Cascade;
+            //    relationship.DeleteBehavior = DeleteBehavior.Restrict;
             //}
 
             base.OnModelCreating(modelBuilder);

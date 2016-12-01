@@ -49,6 +49,8 @@ namespace Hellion.Cluster.Structures
 
         public float PosZ { get; set; }
 
+        public string BankCode { get; set; }
+
         public List<int> ItemsId { get; set; }
 
         public object Items { get; set; }

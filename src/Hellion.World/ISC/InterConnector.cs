@@ -33,8 +33,8 @@ namespace Hellion.World.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.CanAuthticate: this.Authentificate(); break;
-                case InterHeaders.AuthenticationResult: this.OnAuthentificationResult(packet); break;
+                case InterHeaders.CanAuthticate: this.Authenticate(); break;
+                case InterHeaders.AuthenticationResult: this.OnAuthenticationResult(packet); break;
                 default: Log.Warning("Unknow packet header: 0x{0}", packetHeaderNumber.ToString("X2")); break;
             }
         }

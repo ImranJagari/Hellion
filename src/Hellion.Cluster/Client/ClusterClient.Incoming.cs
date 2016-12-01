@@ -98,6 +98,7 @@ namespace Hellion.Cluster.Client
                 Gender = gender,
                 ClassId = 0,
                 FaceId = headMesh,
+                BankCode = bankPassword.ToString(),
                 Level = this.Server.ClusterConfiguration.DefaultCharacter.Level,
                 Strength = this.Server.ClusterConfiguration.DefaultCharacter.Strength,
                 Stamina = this.Server.ClusterConfiguration.DefaultCharacter.Stamina,
@@ -110,10 +111,10 @@ namespace Hellion.Cluster.Client
                 Gold = this.Server.ClusterConfiguration.DefaultCharacter.Gold,
                 Items = new HashSet<DbItem>()
                 {
-                    new DbItem() { Id = defaultEquipment.StartSuit, ItemSlot = 44, ItemCount = 1 },
-                    new DbItem() { Id = defaultEquipment.StartHand, ItemSlot = 46, ItemCount = 1 },
-                    new DbItem() { Id = defaultEquipment.StartShoes, ItemSlot = 47, ItemCount = 1 },
-                    new DbItem() { Id = defaultEquipment.StartWeapon, ItemSlot = 52, ItemCount = 1 }
+                    new DbItem() { ItemId = defaultEquipment.StartSuit, ItemSlot = 44, ItemCount = 1 },
+                    new DbItem() { ItemId = defaultEquipment.StartHand, ItemSlot = 46, ItemCount = 1 },
+                    new DbItem() { ItemId = defaultEquipment.StartShoes, ItemSlot = 47, ItemCount = 1 },
+                    new DbItem() { ItemId = defaultEquipment.StartWeapon, ItemSlot = 52, ItemCount = 1 }
                 }
             };
 
