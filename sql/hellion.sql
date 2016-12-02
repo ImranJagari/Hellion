@@ -16,6 +16,76 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `characters`
+--
+
+DROP TABLE IF EXISTS `characters`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `characters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accountId` int(11) NOT NULL,
+  `bankCode` longtext,
+  `classId` int(11) NOT NULL,
+  `dexterity` int(11) NOT NULL,
+  `faceId` int(11) NOT NULL,
+  `gender` tinyint(3) unsigned NOT NULL,
+  `gold` int(11) NOT NULL,
+  `hairColor` int(10) unsigned NOT NULL,
+  `hairId` int(11) NOT NULL,
+  `intelligence` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  `mapId` int(11) NOT NULL,
+  `name` longtext,
+  `posX` float NOT NULL,
+  `posY` float NOT NULL,
+  `posZ` float NOT NULL,
+  `skinSetId` int(11) NOT NULL,
+  `slot` int(11) NOT NULL,
+  `stamina` int(11) NOT NULL,
+  `strength` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `characters`
+--
+
+LOCK TABLES `characters` WRITE;
+/*!40000 ALTER TABLE `characters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `characters` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `items`
+--
+
+DROP TABLE IF EXISTS `items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `characterId` int(11) NOT NULL,
+  `itemCount` int(11) NOT NULL,
+  `itemId` int(11) NOT NULL,
+  `itemSlot` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IX_items_characterId` (`characterId`),
+  CONSTRAINT `FK_items_characters_characterId` FOREIGN KEY (`characterId`) REFERENCES `characters` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `items`
+--
+
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -24,10 +94,10 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `authority` int(11) NOT NULL,
   `password` longtext,
   `username` longtext,
-  `authority` int(11) DEFAULT NULL,
-  `userscol` varchar(45) DEFAULT NULL,
+  `verification` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +108,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'89d1ed22aac58f5bbea53b2fde81a946','admin',100,NULL);
+INSERT INTO `users` VALUES (1,100,'89d1ed22aac58f5bbea53b2fde81a946','admin','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +121,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-19 20:35:22
+-- Dump completed on 2016-12-02 10:18:40
