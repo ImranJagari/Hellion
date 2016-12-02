@@ -72,6 +72,19 @@ namespace Hellion.Cluster.Client
         }
 
         /// <summary>
+        /// Send the login protect to the client
+        /// </summary>
+        public void SendLoginNumPad()
+        {
+            var packet = new FFPacket();
+            
+            packet.Write(0x88100200);
+            packet.Write(this.loginProtectValue);
+
+            this.Send(packet);
+        }
+
+        /// <summary>
         /// Send the character list to the client.
         /// </summary>
         /// <param name="authKey">authentication key</param>

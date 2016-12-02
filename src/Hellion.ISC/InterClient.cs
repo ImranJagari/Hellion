@@ -66,7 +66,7 @@ namespace Hellion.ISC
 
             switch (packetHeader)
             {
-                case InterHeaders.Authentication: this.OnAuthentification(packet); break;
+                case InterHeaders.Authentication: this.OnAuthentication(packet); break;
 
                 default:
                     Log.Warning("Unknow packet: 0x{0}", packetHeaderNumber.ToString("X2"));

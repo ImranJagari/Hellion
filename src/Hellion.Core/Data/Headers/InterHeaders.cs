@@ -14,5 +14,6 @@
         Authentication = 0x01,
         AuthenticationResult = 0x02,
         UpdateServerList = 0x03,
+        UpdateWorldServerList = 0x04,
     }
 }

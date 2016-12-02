@@ -54,5 +54,30 @@ namespace Hellion.ISC
 
             this.Server.SendPacketToLoginServer(packet);
         }
+
+        public void SendWorldServerListToCluster(int clusterId)
+        {
+            InterClient clusterClient = this.Server.GetClusterById(clusterId);
+            IEnumerable<WorldServerInfo> worlds = this.Server.GetWorldsByClusterId(clusterId);
+
+            if (clusterClient != null && worlds.Any())
+            {
+                var packet = new NetPacket();
+
+                packet.Write((int)InterHeaders.UpdateWorldServerList);
+                packet.Write(worlds.Count());
+
+                foreach (var worldServer in worlds)
+                {
+                    packet.Write(worldServer.Id);
+                    packet.Write(worldServer.Ip);
+                    packet.Write(worldServer.Name);
+                    packet.Write(worldServer.Capacity);
+                    packet.Write(worldServer.ConnectedPlayerCount);
+                }
+
+                clusterClient.Send(packet);
+            }
+        }
     }
 }

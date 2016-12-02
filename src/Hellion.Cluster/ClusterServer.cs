@@ -6,6 +6,7 @@ using Hellion.Core.Configuration;
 using Hellion.Core.Database;
 using Hellion.Core.Database.Repository;
 using Hellion.Core.IO;
+using Hellion.Core.ISC.Structures;
 using Hellion.Core.Network;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -38,6 +39,11 @@ namespace Hellion.Cluster
         public DatabaseConfiguration DatabaseConfiguration { get; private set; }
 
         /// <summary>
+        /// Gets the list of the conencted world servers.
+        /// </summary>
+        public ICollection<WorldServerInfo> ConnectedWorldServers { get; private set; }
+
+        /// <summary>
         /// Creates a new ClusterServer instance.
         /// </summary>
         public ClusterServer()
@@ -45,6 +51,8 @@ namespace Hellion.Cluster
         {
             Console.Title = "Hellion ClusterServer";
             Log.Info("Starting ClusterServer...");
+
+            this.ConnectedWorldServers = new List<WorldServerInfo>();
         }
 
         /// <summary>

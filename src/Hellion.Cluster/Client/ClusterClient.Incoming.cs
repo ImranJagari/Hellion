@@ -41,11 +41,14 @@ namespace Hellion.Cluster.Client
                 return;
             }
 
+            this.selectedServerId = serverId;
             var characters = from x in DatabaseService.Characters.GetAll(c => c.Items)
                              where x.AccountId == account.Id
                              select x;
 
+            this.SendWorldIp(this.GetWorldIpBySelectedServerId());
             this.SendCharacterList(authKey, characters.ToList());
+            this.SendLoginNumPad();
         }
 
         /// <summary>

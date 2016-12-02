@@ -16,6 +16,8 @@ namespace Hellion.Cluster.Client
     public partial class ClusterClient : NetConnection
     {
         private uint sessionId;
+        private int selectedServerId;
+        private int loginProtectValue;
 
         /// <summary>
         /// Gets or sets the server reference.
@@ -29,6 +31,7 @@ namespace Hellion.Cluster.Client
             : base()
         {
             this.sessionId = (uint)Global.GenerateRandomNumber();
+            this.loginProtectValue = new Random().Next(0, 1000);
         }
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace Hellion.Cluster.Client
             : base(socket)
         {
             this.sessionId = (uint)Global.GenerateRandomNumber();
+            this.loginProtectValue = new Random().Next(0, 1000);
         }
 
         /// <summary>
@@ -82,6 +86,13 @@ namespace Hellion.Cluster.Client
                            select x;
 
             return accounts.FirstOrDefault();
+        }
+
+        public string GetWorldIpBySelectedServerId()
+        {
+            return (from x in this.Server.ConnectedWorldServers
+                    where x.Id == this.selectedServerId
+                    select x.Ip).FirstOrDefault();
         }
     }
 }

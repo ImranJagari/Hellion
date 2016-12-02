@@ -4,9 +4,10 @@
   "buildVersion": "20100412",
   "accountVerification": true,
   "passwordEncryption": true,
+  "encryptionKey": "dldhsvmflvm",
   "isc": {
     "ip": "127.0.0.1",
     "port": 15000,
-	"interPassword": "4fded1464736e77865df232cbcb4cd19"
+    "interPassword": "4fded1464736e77865df232cbcb4cd19"
   }
 }
