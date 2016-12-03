@@ -4,20 +4,19 @@ using Hellion.Cluster.Client;
 using Hellion.Cluster.ISC;
 using Hellion.Core.Configuration;
 using Hellion.Core.Database;
-using Hellion.Core.Database.Repository;
 using Hellion.Core.IO;
 using Hellion.Core.ISC.Structures;
 using Hellion.Core.Network;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Hellion.Cluster
 {
+    /// <summary>
+    /// Cluster server class.
+    /// </summary>
     public class ClusterServer : NetServer<ClusterClient>
     {
         private const string ClusterConfigurationFile = "config/cluster.json";

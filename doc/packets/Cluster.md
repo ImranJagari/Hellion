@@ -29,6 +29,20 @@ _Structure:_
 
 ```c#
 [int] header: ClusterHeaders.Incoming.CreateCharacter (0xF4)
+[string] username
+[string] password
+[int] slot
+[string] characterName
+[byte] faceId
+[byte] costumeId
+[byte] skinSetId
+[byte] hairMeshId
+[uint] hairColor
+[byte] gender
+[byte] job
+[byte] headMeshId
+[int] bankPassword
+[int] authKey
 ```
 
 ### Delete Characater
@@ -41,6 +55,28 @@ _Structure:_
 
 ```c#
 [int] header: ClusterHeaders.Incoming.DeleteCharacter (0xF5)
+[string] username
+[string] password
+[string] passwordVerification
+[int] characterId
+[int] authKey
+```
+
+### On Pre Join
+
+_Description:_
+
+Recieve a request to join the selected world server.
+
+_Structure:_
+
+```c#
+[int] header: ClusterHeaders.Incoming.PreJoin (0xFF05)
+[string] username
+[int] characterId
+[string] characterName
+[int] bankCode
+[int] authKey
 ```
 
 ## Outgoing Packets
@@ -125,4 +161,14 @@ for (int j = 0; j < messengerCount; ++j)
 {
     // TODO
 }
+```
+
+### Join World
+
+_Description:_
+
+_Structure:_
+
+```c#
+[int] header: ClusterHeaders.Outgoing.JoinWorld (0xFF05)
 ```

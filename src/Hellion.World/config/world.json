@@ -1,6 +1,6 @@
 {
   "ip": "127.0.0.1",
-  "port": 14500,
+  "port": 5400,
   "clusterId": 1,
   "worldId": 1,
   "capacity": 100,

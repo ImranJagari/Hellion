@@ -47,7 +47,12 @@ namespace Hellion.World
         /// </summary>
         public override void Greetings()
         {
-            base.Greetings();
+            var packet = new FFPacket();
+
+            packet.Write(0);
+            packet.Write((int)this.sessionId);
+
+            this.Send(packet);
         }
 
         /// <summary>

@@ -33,6 +33,12 @@ namespace Hellion.Core.Configuration
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the value that indicates if the login protect system is actived or not.
+        /// </summary>
+        [DataMember(Name = "enableLoginProtect")]
+        public bool EnableLoginProtect { get; set; }
+
+        /// <summary>
         /// Gets or sets the ISC configuration.
         /// </summary>
         [DataMember(Name = "isc")]

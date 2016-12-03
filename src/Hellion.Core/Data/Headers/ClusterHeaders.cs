@@ -9,7 +9,7 @@
             Ping = 0x14,
             AuthQuery = 0x0B,
             CreateCharacter = 0xF4,
-            WorldTransfer = 0xFF05,
+            PreJoin = 0xFF05,
         }
 
         public enum Outgoing
@@ -18,7 +18,7 @@
             CharacterList = 0xF3,
             Pong = 0x14,
             LoginMessage = 0xFE,
-            WorldTransfer = 0xFF05,
+            JoinWorld = 0xFF05,
         }
 
         public enum Errors

@@ -1,11 +1,8 @@
-﻿using Hellion.Cluster.Structures;
-using Hellion.Core.Data.Headers;
+﻿using Hellion.Core.Data.Headers;
 using Hellion.Core.Database;
 using Hellion.Core.Network;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hellion.Cluster.Client
 {
@@ -72,13 +69,27 @@ namespace Hellion.Cluster.Client
         }
 
         /// <summary>
-        /// Send the login protect to the client
+        /// Send the login num pad to the client
         /// </summary>
-        public void SendLoginNumPad()
+        private void SendLoginNumPad()
         {
             var packet = new FFPacket();
             
             packet.Write(0x88100200);
+            packet.Write(this.loginProtectValue);
+
+            this.Send(packet);
+        }
+
+        /// <summary>
+        /// Send a new login num pad to the client.
+        /// </summary>
+        private void SendLoginProtect()
+        {
+            var packet = new FFPacket();
+
+            packet.Write(0x88100201);
+            packet.Write(0);
             packet.Write(this.loginProtectValue);
 
             this.Send(packet);
@@ -137,6 +148,18 @@ namespace Hellion.Cluster.Client
             }
             else
                 packet.Write<long>(0);
+
+            this.Send(packet);
+        }
+
+        /// <summary>
+        /// Send the packet that indicates the client can open the world.
+        /// </summary>
+        public void SendJoinWorld()
+        {
+            var packet = new FFPacket();
+
+            packet.WriteHeader(ClusterHeaders.Outgoing.JoinWorld);
 
             this.Send(packet);
         }

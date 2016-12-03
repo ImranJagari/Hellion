@@ -18,6 +18,18 @@ We choose to use the [Ether.Network][ethernetwork] because it provides a clients
 	- [Ether.Network][ethernetwork]
 	- EntityFrameworkCore
 
+
+## Project features
+
+- InterServer communication (ISC)
+- Login Server
+- Cluster Server
+    - Create/Delete character
+    - LoginProtect (On/Off on configuration file)
+    - Select character
+- World Server
+    - ...
+
 ## Project architecture
 
 
@@ -59,6 +71,15 @@ Don't worry, tutorials will follow once the World Server can be started.
 
 ## How to use
 
-The current version of Hellion doesn't allow any preview. This section will be updated when the emulator will be capable of handling real players.
+1) Clone this repository
+2) Install MySQL Server on your computer/server
+3) Execute the sql/hellion.sql file in your MySQL server to setup the database.
+4) Configure the 4 servers (ISC, Login, Cluster, World)
+5) Start the servers
+   - Start ISC
+   - Start Login Server
+   - Start Cluster Server
+   - Start World Server
+6) You are now ready to play!
 
 [ethernetwork]: https://github.com/Eastrall/Ether.Network

@@ -37,10 +37,12 @@ namespace Hellion.Cluster.Client
 
             if (account == null)
             {
+                Log.Warning("Unknow account for username '{0}'.", username);
                 this.Server.RemoveClient(this);
                 return;
             }
 
+            this.Id = account.Id;
             this.selectedServerId = serverId;
             var characters = from x in DatabaseService.Characters.GetAll(c => c.Items)
                              where x.AccountId == account.Id
@@ -75,6 +77,7 @@ namespace Hellion.Cluster.Client
 
             if (account == null)
             {
+                Log.Warning("Unknow account for username '{0}'.", username);
                 this.Server.RemoveClient(this);
                 return;
             }
@@ -101,7 +104,7 @@ namespace Hellion.Cluster.Client
                 Gender = gender,
                 ClassId = 0,
                 FaceId = headMesh,
-                BankCode = bankPassword.ToString(),
+                BankCode = bankPassword,
                 Level = this.Server.ClusterConfiguration.DefaultCharacter.Level,
                 Strength = this.Server.ClusterConfiguration.DefaultCharacter.Strength,
                 Stamina = this.Server.ClusterConfiguration.DefaultCharacter.Stamina,
@@ -146,12 +149,14 @@ namespace Hellion.Cluster.Client
 
             if (account == null)
             {
+                Log.Warning("Unknow account for username '{0}'.", username);
                 this.Server.RemoveClient(this);
                 return;
             }
 
             if (password.ToLower() != passwordVerification.ToLower())
             {
+                Log.Error("Password doesn't match for client '{0}' with id {1}", account.Username, account.Id);
                 this.SendClusterError(ClusterHeaders.Errors.PasswordDontMatch);
                 return;
             }
@@ -172,6 +177,49 @@ namespace Hellion.Cluster.Client
                              select x;
             
             this.SendCharacterList(authKey, characters.ToList());
+        }
+
+        /// <summary>
+        /// On character pre join the world.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void OnPreJoin(NetPacketBase packet)
+        {
+            var username = packet.Read<string>();
+            var characterId = packet.Read<int>();
+            var characterName = packet.Read<string>();
+            var bankCode = packet.Read<int>();
+            var account = DatabaseService.Users.Get(x => x.Id == this.Id);
+
+            if (account == null || account.Username.ToLower() != username.ToLower())
+            {
+                Log.Warning("Hack attempt. Wrong username for account with id {1}.", this.Id);
+                this.Server.RemoveClient(this);
+                return;
+            }
+
+            var selectedCharacter = DatabaseService.Characters.Get(x => x.AccountId == account.Id && x.Id == characterId);
+
+            if (selectedCharacter == null)
+            {
+                Log.Error("Cannot find character '{0}' with id {1} in database.", characterName, characterId);
+                this.Server.RemoveClient(this);
+                return;
+            }
+
+            if (this.Server.ClusterConfiguration.EnableLoginProtect)
+            {
+                bankCode = LoginProtect.GetNumPadToPassword(this.loginProtectValue, bankCode);
+                if (bankCode != selectedCharacter.BankCode)
+                {
+                    Log.Error("Character '{0}' tried to connect with incorrect bank password.", selectedCharacter.Name);
+                    this.loginProtectValue = new Random().Next(0, 1000);
+                    this.SendLoginProtect();
+                    return;
+                }
+            }
+
+            this.SendJoinWorld();
         }
     }
 }

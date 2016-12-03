@@ -70,7 +70,7 @@ namespace Hellion.Core.Database
         public float PosZ { get; set; }
 
         [Column("bankCode")]
-        public string BankCode { get; set; }
+        public int BankCode { get; set; }
 
         public virtual ICollection<DbItem> Items { get; set; }
 

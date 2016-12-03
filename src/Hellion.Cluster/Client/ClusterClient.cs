@@ -1,15 +1,12 @@
 ﻿using Ether.Network;
+using Ether.Network.Packets;
 using Hellion.Core;
-using Hellion.Core.IO;
+using Hellion.Core.Data.Headers;
+using Hellion.Core.Database;
+using Hellion.Core.Network;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Threading.Tasks;
-using Ether.Network.Packets;
-using Hellion.Core.Data.Headers;
-using Hellion.Core.Network;
-using Hellion.Core.Database;
 
 namespace Hellion.Cluster.Client
 {
@@ -70,6 +67,7 @@ namespace Hellion.Cluster.Client
                 case ClusterHeaders.Incoming.CreateCharacter: this.OnCreateCharacter(packet); break;
                 case ClusterHeaders.Incoming.DeleteCharacter: this.OnDeleteCharacter(packet); break;
                 case ClusterHeaders.Incoming.CharacterListRequest: this.OnCharacterListRequest(packet); break;
+                case ClusterHeaders.Incoming.PreJoin: this.OnPreJoin(packet); break;
 
                 default: FFPacket.UnknowPacket<ClusterHeaders.Incoming>(packetHeaderNumber, 2); break;
             }
@@ -77,6 +75,12 @@ namespace Hellion.Cluster.Client
             base.HandleMessage(packet);
         }
 
+        /// <summary>
+        /// Gets the user account with the username and password.
+        /// </summary>
+        /// <param name="username">Account username</param>
+        /// <param name="password">Account password</param>
+        /// <returns></returns>
         private DbUser GetUserAccount(string username, string password)
         {
             var accounts = from x in DatabaseService.Users.GetAll()
@@ -88,6 +92,10 @@ namespace Hellion.Cluster.Client
             return accounts.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets the world ip address by the selected server id.
+        /// </summary>
+        /// <returns></returns>
         public string GetWorldIpBySelectedServerId()
         {
             return (from x in this.Server.ConnectedWorldServers
