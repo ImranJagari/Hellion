@@ -24,6 +24,9 @@ namespace Hellion.Core.Database
         [Column("level")]
         public int Level { get; set; }
 
+        [Column("exp")]
+        public long Experience { get; set; }
+
         [Column("classId")]
         public int ClassId { get; set; }
 
@@ -44,6 +47,15 @@ namespace Hellion.Core.Database
 
         [Column("intelligence")]
         public int Intelligence { get; set; }
+
+        [Column("hp")]
+        public int Hp { get; set; }
+
+        [Column("mp")]
+        public int Mp { get; set; }
+
+        [Column("fp")]
+        public int Fp { get; set; }
 
         [Column("skinSetId")]
         public int SkinSetId { get; set; }

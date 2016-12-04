@@ -9,7 +9,7 @@ namespace Hellion.Core.Data.Headers
     {
         public enum Incoming : uint
         {
-            JoinWorldRequest = 0x0000FF00,
+            Join = 0x0000FF00,
         }
 
         public enum Outgoing : uint

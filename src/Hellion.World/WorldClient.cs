@@ -11,12 +11,18 @@ using Ether.Network.Packets;
 using Hellion.Core;
 using Hellion.Core.Data.Headers;
 using Hellion.Core.Network;
+using Hellion.World.Structures;
 
 namespace Hellion.World
 {
-    public class WorldClient : NetConnection
+    public partial class WorldClient : NetConnection
     {
         private uint sessionId;
+
+        /// <summary>
+        /// Gets or sets the current player.
+        /// </summary>
+        public Player Player { get; private set; }
 
         /// <summary>
         /// Gets or sets the WorldServer reference.
@@ -70,9 +76,7 @@ namespace Hellion.World
 
             switch (packetHeader)
             {
-                case WorldHeaders.Incoming.JoinWorldRequest:
-
-                    break;
+                case WorldHeaders.Incoming.Join: this.OnJoin(packet); break;
 
                 default: FFPacket.UnknowPacket<WorldHeaders.Incoming>(packetHeaderNumber, 8); break;
             }
