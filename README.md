@@ -14,6 +14,7 @@ We choose to use the [Ether.Network][ethernetwork] because it provides a clients
 - Framework target : `.NET Core 1.0`
 - Application type: `Console`
 - Database type : `MySQL`
+- Configuration files type: `JSON`
 - External libraries used:
 	- [Ether.Network][ethernetwork]
 	- EntityFrameworkCore
