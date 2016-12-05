@@ -9,6 +9,9 @@ namespace Hellion.Core.Network
 {
     public class FFPacket : NetPacketBase
     {
+        private int header;
+        private short mergedPacketCount;
+
         /// <summary>
         /// Gets the FFPacket buffer.
         /// </summary>
@@ -36,6 +39,16 @@ namespace Hellion.Core.Network
         }
 
         /// <summary>
+        /// Creates a new FFPacket with a header.
+        /// </summary>
+        /// <param name="packetHeader"></param>
+        public FFPacket(object packetHeader)
+            : this()
+        {
+            this.WriteHeader(packetHeader);
+        }
+
+        /// <summary>
         /// Creates a new FFPacket in read-only mode.
         /// </summary>
         /// <param name="buffer"></param>
@@ -47,12 +60,18 @@ namespace Hellion.Core.Network
         /// <summary>
         /// Write packet header.
         /// </summary>
-        /// <param name="header">FFPacket header</param>
-        public void WriteHeader(object header)
+        /// <param name="packetHeader">FFPacket header</param>
+        public void WriteHeader(object packetHeader)
         {
-            this.Write((int)header);
+            this.header = (int)packetHeader;
+            this.Write(this.header);
         }
 
+        /// <summary>
+        /// Write data into a packet.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
         public override void Write<T>(T value)
         {
             if (typeof(T) == typeof(string))
@@ -107,18 +126,46 @@ namespace Hellion.Core.Network
         /// <param name="value"></param>
         private void WriteString(string value)
         {
-            int length = value.Length;
-            Write(length);
-            for (int i = 0; i < length; i++)
-                this.Write((byte)value[i]);
-            //this.Write(value.Length);
-            //if (value.Length > 0)
-            //    this.Write(Encoding.GetEncoding(0).GetBytes(value));
+            this.Write(value.Length);
+            if (value.Length > 0)
+                this.Write(Encoding.GetEncoding(0).GetBytes(value));
         }
 
-        public void WriteFloat(float f)
+        /// <summary>
+        /// Start a new merged packet.
+        /// </summary>
+        /// <param name="moverId"></param>
+        /// <param name="command"></param>
+        /// <param name="mainCommand"></param>
+        public void StartNewMergedPacket(int moverID, object command, uint mainCommand)
         {
-            this.memoryWriter.Write(f);
+            uint packet = (uint)command;
+
+            if (this.mergedPacketCount == 0)
+            {
+                this.Write(mainCommand);
+                this.Write(0);
+                this.Write(++this.mergedPacketCount);
+            }
+            else
+            {
+                this.memoryStream.Seek(13, SeekOrigin.Begin);
+                this.Write(++this.mergedPacketCount);
+                this.memoryStream.Seek(0, SeekOrigin.End);
+            }
+
+            this.Write(moverID);
+            this.Write((short)packet);
+        }
+
+        /// <summary>
+        /// Start a new merged packet.
+        /// </summary>
+        /// <param name="moverId"></param>
+        /// <param name="command"></param>
+        public void StartNewMergedPacket(int moverId, object command)
+        {
+            this.StartNewMergedPacket(moverId, command, 0xFFFFFF00);
         }
 
         /// <summary>

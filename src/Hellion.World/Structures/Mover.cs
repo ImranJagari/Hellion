@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hellion.Core.Data;
 
 namespace Hellion.World.Structures
 {
@@ -22,6 +23,11 @@ namespace Hellion.World.Structures
         public float Speed { get; set; }
         
         public int Level { get; }
+
+        public override WorldObjectType Type
+        {
+            get { return WorldObjectType.Mover; }
+        }
 
         public Mover(int modelId)
             : base(modelId)

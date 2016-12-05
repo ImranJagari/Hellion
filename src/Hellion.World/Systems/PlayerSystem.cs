@@ -39,7 +39,7 @@ namespace Hellion.World
             DbCharacter character = DatabaseService.Characters.Get(x =>
                 x.AccountId == account.Id &&
                 x.Name.ToLower() == playerName.ToLower() &&
-                x.Id == playerId, includes => includes.Items);
+                x.Id == playerId, includes => includes.Items); // TODO: include more
 
             if (character == null)
             {
@@ -49,7 +49,7 @@ namespace Hellion.World
             }
 
             this.Player = new Player(character);
-            // Send world transfer
+            this.SendPlayerSpawn();
         }
     }
 }

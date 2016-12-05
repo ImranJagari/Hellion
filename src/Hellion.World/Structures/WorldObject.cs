@@ -1,4 +1,5 @@
-﻿using Hellion.Core.Structures;
+﻿using Hellion.Core.Data;
+using Hellion.Core.Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,18 @@ namespace Hellion.World.Structures
 
         public int ModelId { get; set; }
 
-        public int Size { get; set; }
+        public short Size { get; set; }
 
         public int MapId { get; set; }
 
         public Vector3 Position { get; set; }
 
         public ICollection<WorldObject> SpawnedObjects { get; set; }
+
+        public virtual WorldObjectType Type
+        {
+            get { return WorldObjectType.Object; }
+        }
 
         public WorldObject(int modelId)
         {

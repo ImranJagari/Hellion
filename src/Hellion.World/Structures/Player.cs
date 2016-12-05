@@ -1,8 +1,10 @@
 ﻿using Hellion.Core.Database;
+using Hellion.Core.Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hellion.Core.Data;
 
 namespace Hellion.World.Structures
 {
@@ -88,7 +90,7 @@ namespace Hellion.World.Structures
             this.FaceId = dbCharacter.FaceId;
             this.BankCode = dbCharacter.BankCode;
             this.MapId = dbCharacter.MapId;
-            this.Position = new Core.Structures.Vector3(dbCharacter.PosX, dbCharacter.PosY, dbCharacter.PosZ);
+            this.Position = new Vector3(dbCharacter.PosX, dbCharacter.PosY, dbCharacter.PosZ);
 
             // Initialize inventory, quests, guild, friends, skills etc...
         }
