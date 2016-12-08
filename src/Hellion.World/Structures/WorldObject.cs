@@ -10,7 +10,7 @@ namespace Hellion.World.Structures
 {
     public abstract class WorldObject
     {
-        public int Id { get; set; }
+        public int ObjectId { get; set; }
 
         public int ModelId { get; set; }
 
@@ -29,7 +29,7 @@ namespace Hellion.World.Structures
 
         public WorldObject(int modelId)
         {
-            this.Id = EHelper.Helper.GenerateUniqueId();
+            this.ObjectId = EHelper.Helper.GenerateUniqueId();
             this.ModelId = modelId;
             this.Size = 100;
             this.MapId = -1;

@@ -50,7 +50,9 @@ namespace Hellion.Cluster.Client
 
             this.SendWorldIp(this.GetWorldIpBySelectedServerId());
             this.SendCharacterList(authKey, characters.ToList());
-            this.SendLoginNumPad();
+
+            if (this.Server.ClusterConfiguration.EnableLoginProtect)
+                this.SendLoginNumPad();
         }
 
         /// <summary>

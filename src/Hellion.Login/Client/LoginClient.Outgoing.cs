@@ -39,7 +39,7 @@ namespace Hellion.Login.Client
             packet.WriteHeader(LoginHeaders.Outgoing.ServerList);
             packet.Write(0);
             packet.Write<byte>(1);
-            packet.Write("admin"); // FIXME: put the right username
+            packet.Write(this.username);
             packet.Write(this.GetServerCount());
 
             foreach (ClusterServerInfo cluster in LoginServer.Clusters)

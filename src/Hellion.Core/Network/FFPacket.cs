@@ -9,7 +9,7 @@ namespace Hellion.Core.Network
 {
     public class FFPacket : NetPacketBase
     {
-        private int header;
+        private uint header;
         private short mergedPacketCount;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Hellion.Core.Network
         /// <param name="packetHeader">FFPacket header</param>
         public void WriteHeader(object packetHeader)
         {
-            this.header = (int)packetHeader;
+            this.header = (uint)packetHeader;
             this.Write(this.header);
         }
 
@@ -143,7 +143,7 @@ namespace Hellion.Core.Network
 
             if (this.mergedPacketCount == 0)
             {
-                this.Write(mainCommand);
+                this.Write((int)mainCommand);
                 this.Write(0);
                 this.Write(++this.mergedPacketCount);
             }
@@ -174,7 +174,7 @@ namespace Hellion.Core.Network
         /// <typeparam name="T">enum: Headers type</typeparam>
         /// <param name="header">Header number</param>
         /// <param name="digits">Digit numbers to display</param>
-        public static void UnknowPacket<T>(int header, int digits)
+        public static void UnknowPacket<T>(uint header, int digits)
         {
             if (Enum.IsDefined(typeof(T), header))
                 Log.Warning("Unimplemented packet {0}", Enum.GetName(typeof(T), header));

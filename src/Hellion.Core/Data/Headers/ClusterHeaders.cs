@@ -2,7 +2,7 @@
 {
     public class ClusterHeaders
     {
-        public enum Incoming
+        public enum Incoming : uint
         {
             CharacterListRequest = 0xF6,
             DeleteCharacter = 0xF5,
@@ -12,7 +12,7 @@
             PreJoin = 0xFF05,
         }
 
-        public enum Outgoing
+        public enum Outgoing : uint
         {
             GameServerIP = 0xF2,
             CharacterList = 0xF3,

@@ -155,6 +155,8 @@ namespace Hellion.World
                 Log.Info("Connecting to database...");
                 dbContext = new DatabaseContext(this.DatabaseConfiguration);
                 dbContext.Database.EnsureCreated();
+
+                DatabaseService.InitializeDatabase(dbContext);
                 Log.Done("Connected to database!");
             }
             catch (Exception e)

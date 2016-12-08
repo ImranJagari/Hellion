@@ -19,6 +19,8 @@ namespace Hellion.World
     {
         private uint sessionId;
 
+        private DbUser currentUser;
+
         /// <summary>
         /// Gets or sets the current player.
         /// </summary>
@@ -69,7 +71,7 @@ namespace Hellion.World
         {
             packet.Position = 17;
 
-            var packetHeaderNumber = packet.Read<int>();
+            var packetHeaderNumber = packet.Read<uint>();
             var packetHeader = (WorldHeaders.Incoming)packetHeaderNumber;
 
             Log.Debug("Recieve packet: {0}", packetHeader);
@@ -82,6 +84,11 @@ namespace Hellion.World
             }
 
             base.HandleMessage(packet);
+        }
+
+        private void SendPacket(FFPacket packet)
+        {
+            this.Socket.Send(packet.Buffer, SocketFlags.None);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class LoginHeaders
     {
-        public enum Incoming : int
+        public enum Incoming : uint
         {
             LoginRequest = 0xFC,
             CutConnection = 0x16,
@@ -10,7 +10,7 @@
             CloseConnection = 0xFF,
         }
 
-        public enum Outgoing : int
+        public enum Outgoing : uint
         {
             Welcome = 0x00,
             ServerList = 0xFD,

@@ -16,6 +16,7 @@ namespace Hellion.Login.Client
     public partial class LoginClient : NetConnection
     {
         private uint sessionId;
+        private string username;
 
         /// <summary>
         /// Gets or sets the LoginServer reference.
@@ -61,7 +62,7 @@ namespace Hellion.Login.Client
         public override void HandleMessage(NetPacketBase packet)
         {
             packet.Position += 13;
-            var packetHeaderNumber = packet.Read<int>();
+            var packetHeaderNumber = packet.Read<uint>();
             var packetHeader = (LoginHeaders.Incoming)packetHeaderNumber;
             var pak = packet as FFPacket;
 
@@ -69,7 +70,7 @@ namespace Hellion.Login.Client
             {
                 case LoginHeaders.Incoming.LoginRequest: this.OnLoginRequest(pak); break;
 
-                default: FFPacket.UnknowPacket<LoginHeaders.Incoming>(packetHeaderNumber, 2); break;
+                default: FFPacket.UnknowPacket<LoginHeaders.Incoming>((uint)packetHeaderNumber, 2); break;
             }
         }
 

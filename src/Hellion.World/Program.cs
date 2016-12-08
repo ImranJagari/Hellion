@@ -9,6 +9,8 @@ namespace Hellion.World
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine(uint.MaxValue);
+
             using (var server = new WorldServer())
                 server.Start();
         }

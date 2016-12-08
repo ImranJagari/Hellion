@@ -13,7 +13,7 @@ namespace Hellion.World.Structures
     /// </summary>
     public class Player : Mover
     {
-        public int PlayerId { get; private set; }
+        public int Id { get; private set; }
         
         public int AccountId { get; set; }
         
@@ -69,7 +69,7 @@ namespace Hellion.World.Structures
         public Player(DbCharacter dbCharacter)
             : base(dbCharacter.Gender == 0 ? 11 : 12)
         {
-            this.PlayerId = dbCharacter.Id;
+            this.Id = dbCharacter.Id;
             this.AccountId = dbCharacter.AccountId;
             this.Name = dbCharacter.Name;
             this.Gender = dbCharacter.Gender;

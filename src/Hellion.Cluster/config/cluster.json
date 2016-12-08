@@ -3,7 +3,7 @@
   "port": 28000,
   "buildVersion": null,
   "accountVerification": false,
-  "enableLoginProtect": true,
+  "enableLoginProtect": false,
   "defaultCharacter": {
     "level": 1,
     "gold": 0,

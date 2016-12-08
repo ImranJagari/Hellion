@@ -75,6 +75,7 @@ namespace Hellion.Login.Client
                     return;
                 }
 
+                this.username = user.Username;
                 this.SendServerList();
             }
         }
