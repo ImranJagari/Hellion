@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Hellion.World
+﻿namespace Hellion.World
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(uint.MaxValue);
-
             using (var server = new WorldServer())
                 server.Start();
         }
