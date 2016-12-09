@@ -11,9 +11,8 @@ namespace Hellion.World
     {
         public void SendPlayerSpawn()
         {
-            //using (var packet = new FFPacket())
-            //{
-            var packet = new FFPacket();
+            using (var packet = new FFPacket())
+            {
             packet.StartNewMergedPacket(this.Player.ObjectId, WorldHeaders.Outgoing.WeatherAll, 0x0000FF00);
             packet.Write(0); // Get weather by season
 
@@ -361,8 +360,8 @@ namespace Hellion.World
             //packet.StartNewMergedPacket(this.Player.ObjectId, WorldHeaders.Outgoing.MessageHud);
             //packet.Write("Welcome to Hellion Emulator!");
 
-            this.SendPacket(packet);
-            //}
+            this.Send(packet);
+            }
         }
     }
 }

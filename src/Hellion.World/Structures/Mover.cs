@@ -12,8 +12,6 @@ namespace Hellion.World.Structures
 
         public bool IsFlying { get; set; }
 
-        public bool IsSpawned { get; set; }
-
         public bool IsFighting { get; set; }
 
         public bool IsFollowing { get; set; }

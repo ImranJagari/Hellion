@@ -85,10 +85,5 @@ namespace Hellion.World
 
             base.HandleMessage(packet);
         }
-
-        private void SendPacket(FFPacket packet)
-        {
-            this.Socket.Send(packet.Buffer, SocketFlags.None);
-        }
     }
 }

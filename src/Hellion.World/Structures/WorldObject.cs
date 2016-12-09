@@ -10,6 +10,8 @@ namespace Hellion.World.Structures
 {
     public abstract class WorldObject
     {
+        public bool IsSpawned { get; set; }
+
         public int ObjectId { get; set; }
 
         public int ModelId { get; set; }
@@ -35,6 +37,11 @@ namespace Hellion.World.Structures
             this.MapId = -1;
             this.Position = new Vector3();
             this.SpawnedObjects = new List<WorldObject>();
+        }
+
+        public bool CanSee(WorldObject otherObject)
+        {
+            return this.Position.IsInCircle(otherObject.Position, 75f);
         }
     }
 }
