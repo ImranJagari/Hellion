@@ -10,6 +10,12 @@
     "drop": 1,
     "gold": 1
   },
+  "maps": [
+    {
+      "id": 1,
+      "name": "WdMadrigal"
+    }
+  ],
   "isc": {
     "ip": "127.0.0.1",
     "port": 15000,

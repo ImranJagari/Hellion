@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Hellion.Core.Configuration
 {
@@ -57,6 +58,12 @@ namespace Hellion.Core.Configuration
         public RatesConfiguration Rates { get; set; }
 
         /// <summary>
+        /// Gets or sets the maps.
+        /// </summary>
+        [DataMember(Name = "maps")]
+        public ICollection<MapConfiguration> Maps { get; set; }
+
+        /// <summary>
         /// Creates a new World configuration instance.
         /// </summary>
         public WorldConfiguration()
@@ -73,16 +80,19 @@ namespace Hellion.Core.Configuration
         /// <summary>
         /// Gets or sets the experience rate.
         /// </summary>
+        [DataMember(Name = "exp")]
         public float Exp { get; set; }
 
         /// <summary>
         /// Gets or sets the drop rate.
         /// </summary>
+        [DataMember(Name = "drop")]
         public float Drop { get; set; }
 
         /// <summary>
         /// Gets or sets the gold drop rate.
         /// </summary>
+        [DataMember(Name = "gold")]
         public float Gold { get; set; }
 
         /// <summary>
@@ -93,6 +103,30 @@ namespace Hellion.Core.Configuration
             this.Exp = 1;
             this.Drop = 1;
             this.Gold = 1;
+        }
+    }
+
+    public class MapConfiguration
+    {
+        /// <summary>
+        /// Gets or sets the map id.
+        /// </summary>
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the map name.
+        /// </summary>
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Creates a new MapConfiguration instance.
+        /// </summary>
+        public MapConfiguration()
+        {
+            this.Id = -1;
+            this.Name = string.Empty;
         }
     }
 }
