@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `characters`;
 CREATE TABLE `characters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `accountId` int(11) NOT NULL,
-  `bankCode` longtext,
+  `bankCode` int(11) DEFAULT NULL,
   `classId` int(11) NOT NULL,
   `dexterity` int(11) NOT NULL,
   `faceId` int(11) NOT NULL,
@@ -44,8 +44,13 @@ CREATE TABLE `characters` (
   `slot` int(11) NOT NULL,
   `stamina` int(11) NOT NULL,
   `strength` int(11) NOT NULL,
+  `hp` int(10) unsigned DEFAULT NULL,
+  `mp` int(10) unsigned DEFAULT NULL,
+  `fp` int(10) unsigned DEFAULT NULL,
+  `exp` bigint(20) DEFAULT NULL,
+  `characterscol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,6 +59,7 @@ CREATE TABLE `characters` (
 
 LOCK TABLES `characters` WRITE;
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
+INSERT INTO `characters` VALUES (4,1,1234,0,15,4,0,0,4288575341,2,15,1,1,'Eastrall',6968,100,3328,0,0,15,15,230,230,230,0,NULL);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,7 +79,7 @@ CREATE TABLE `items` (
   PRIMARY KEY (`id`),
   KEY `IX_items_characterId` (`characterId`),
   CONSTRAINT `FK_items_characters_characterId` FOREIGN KEY (`characterId`) REFERENCES `characters` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,6 +88,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` VALUES (13,4,1,502,44),(14,4,1,506,46),(15,4,1,510,47),(16,4,1,21,52);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,4 +128,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-02 10:18:40
+-- Dump completed on 2016-12-10 13:38:49
