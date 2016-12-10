@@ -1,6 +1,9 @@
-﻿using Hellion.World.Structures;
+﻿using Hellion.Core;
+using Hellion.Core.Data;
+using Hellion.World.Structures;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,16 +18,19 @@ namespace Hellion.World.Systems.Map
 
         public ICollection<WorldObject> Objects { get; private set; }
 
-        public Map()
+        public Map(string mapName)
         {
+            this.Name = mapName;
             this.Objects = new HashSet<WorldObject>();
 
             this.thread = new Thread(this.Update);
             //this.thread.Start();
         }
 
-        public void Load(string mapPath)
+        public void Load()
         {
+            string mapPath = Path.Combine(Global.DataPath, "maps", this.Name);
+            
             // Load .wld
             // Load .dyo
             // Load .rgn

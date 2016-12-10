@@ -1,6 +1,8 @@
-﻿using Hellion.Core.Configuration;
+﻿using Hellion.Core;
+using Hellion.Core.Configuration;
 using Hellion.Core.Data.Resources;
 using Hellion.Core.IO;
+using Hellion.World.Systems.Map;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +15,6 @@ namespace Hellion.World
     public partial class WorldServer
     {
         private Dictionary<string, int> defines = new Dictionary<string, int>();
-        private string dataPath = Path.Combine(Directory.GetCurrentDirectory(), "data");
 
         /// <summary>
         /// Loads the world server data like resources, maps, quests, dialogs, etc...
@@ -24,6 +25,7 @@ namespace Hellion.World
             Log.Info("Loading world data...");
             
             this.LoadDefines();
+            this.LoadMaps();
             this.Clear();
 
             Log.Done("World data loaded in {0}s", (DateTime.Now - startTime).TotalSeconds);
@@ -60,7 +62,7 @@ namespace Hellion.World
 
             foreach (var defineFile in defines)
             {
-                var defineFileContent = new DefineFile(Path.Combine(this.dataPath, "res", "data", defineFile));
+                var defineFileContent = new DefineFile(Path.Combine(Global.DataPath, "res", "data", defineFile));
                 defineFileContent.Parse();
 
                 foreach (var define in defineFileContent.Defines)
@@ -68,6 +70,22 @@ namespace Hellion.World
                     if (!this.defines.ContainsKey(define.Key))
                         this.defines.Add(define.Key, define.Value);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Load the flyff maps specified in the configuration file.
+        /// </summary>
+        private void LoadMaps()
+        {
+            IEnumerable<MapConfiguration> maps = this.WorldConfiguration.Maps;
+
+            foreach (var map in maps)
+            {
+                var newMap = new Map(map.Name);
+                newMap.Load();
+
+                // add map to MapInstance
             }
         }
     }

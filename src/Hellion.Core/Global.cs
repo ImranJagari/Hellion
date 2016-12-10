@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace Hellion.Core
         public const string SingleLineComment = "//";
         public const string MultiLineCommentStart = "/*";
         public const string MultiLineCommentEnd = "*/";
+        
+        public static readonly string DataPath = Path.Combine(Directory.GetCurrentDirectory(), "data");
 
         public static int GenerateRandomNumber()
         {
