@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Hellion.World
 {
-    public class WorldServer : NetServer<WorldClient>
+    public partial class WorldServer : NetServer<WorldClient>
     {
         private const string WorldConfigurationFile = "config/world.json";
         private const string DatabaseConfigurationFile = "config/database.json";
@@ -85,6 +85,7 @@ namespace Hellion.World
         {
             this.LoadConfiguration();
             this.ConnectToDatabase();
+            this.LoadData();
             this.ConnectToISC();
 
             Console.WriteLine();

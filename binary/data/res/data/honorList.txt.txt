@@ -1,0 +1,99 @@
+IDS_TITLE_TXT_0001	Maître des Collections
+IDS_TITLE_TXT_0002	Maître des Affaires
+IDS_TITLE_TXT_0003	Maître des Couvées
+IDS_TITLE_TXT_0004	Casanova
+IDS_TITLE_TXT_0005	Cœur Fidèle
+IDS_TITLE_TXT_0006	Affreux Jojo
+IDS_TITLE_TXT_0007	Maître Dragon
+IDS_TITLE_TXT_0008	Maître Bœuf
+IDS_TITLE_TXT_0009	Maître Tigre
+IDS_TITLE_TXT_0010	Maître Singe
+IDS_TITLE_TXT_0011	Apprenti Combattant
+IDS_TITLE_TXT_0012	Combattant Confirmé
+IDS_TITLE_TXT_0013	Combattant Acharné
+IDS_TITLE_TXT_0014	Combattant Passionné
+IDS_TITLE_TXT_0015	Célèbre Combattant
+IDS_TITLE_TXT_0016	Combattant Costaud
+IDS_TITLE_TXT_0017	Combattant Renommé
+IDS_TITLE_TXT_0018	Grand Combattant
+IDS_TITLE_TXT_0019	Combattant Adulé
+IDS_TITLE_TXT_0020	Meilleur Combattant
+IDS_TITLE_TXT_0021	Garde d'Honneur
+IDS_TITLE_TXT_0022	Fine Lame
+IDS_TITLE_TXT_0023	Pied Leste
+IDS_TITLE_TXT_0024	Rôdeur
+IDS_TITLE_TXT_0025	Guérisseur
+IDS_TITLE_TXT_0026	Scarabée
+IDS_TITLE_TXT_0027	Thaumaturge
+IDS_TITLE_TXT_0028	Erudit
+IDS_TITLE_TXT_0029	Prétorien
+IDS_TITLE_TXT_0030	Messager de Mort
+IDS_TITLE_TXT_0031	Intouchable
+IDS_TITLE_TXT_0032	Sagittaire
+IDS_TITLE_TXT_0033	Médecin de Guerre
+IDS_TITLE_TXT_0034	Maître Chi
+IDS_TITLE_TXT_0035	Nécromant
+IDS_TITLE_TXT_0036	Archimage
+IDS_TITLE_TXT_0037	Seigneur
+IDS_TITLE_TXT_0038	Accro aux Pilules Grises
+IDS_TITLE_TXT_0039	Accro aux Pilules Jaunes
+IDS_TITLE_TXT_0040	Accro aux Pilules Bleues
+IDS_TITLE_TXT_0041	Accro aux Pilules Rouges
+IDS_TITLE_TXT_0042	Accro aux Pilules Magiques
+IDS_TITLE_TXT_0043	Accro aux Pilules Mystérieuses
+IDS_TITLE_TXT_0044	Accro aux Sucettes
+IDS_TITLE_TXT_0045	Accro aux Biscuits
+IDS_TITLE_TXT_0046	Accro aux Barres Chocolatées
+IDS_TITLE_TXT_0047	Accro au Lait
+IDS_TITLE_TXT_0048	Accro au Pain
+IDS_TITLE_TXT_0049	Accro aux Hot Dogs
+IDS_TITLE_TXT_0050	Accro aux Pizzas
+IDS_TITLE_TXT_0051	Accro aux Kimbap
+IDS_TITLE_TXT_0052	Accro aux Cuisses de poulet
+IDS_TITLE_TXT_0053	Accro aux Sucreries cosmique
+IDS_TITLE_TXT_0054	Accro aux Brochettes de viande
+IDS_TITLE_TXT_0055	Accro au Barbecue
+IDS_TITLE_TXT_0056	Accro aux Fruits de mer
+IDS_TITLE_TXT_0057	Accro à la Soupe de Poisson
+IDS_TITLE_TXT_0058	Accro aux Saucisses Mijotées
+IDS_TITLE_TXT_0059	Accro au Ragoût de poissons
+IDS_TITLE_TXT_0060	Accro aux Fruits de mer à la vapeur
+IDS_TITLE_TXT_0061	Accro à la Salade de viande
+IDS_TITLE_TXT_0062	Accro aux Gratins
+IDS_TITLE_TXT_0063	Accro aux Pizzas du pêcheur
+IDS_TITLE_TXT_0064	Accro au Jus d'Orange
+IDS_TITLE_TXT_0065	Accro aux Milk Shake
+IDS_TITLE_TXT_0066	Accro aux Ananas glacés
+IDS_TITLE_TXT_0067	Accro aux Bananes
+IDS_TITLE_TXT_0068	Accro aux Jus de Fruits
+IDS_TITLE_TXT_0069	Accro aux Jus de Fruits Glacés
+IDS_TITLE_TXT_0070	Accro aux Cocktails de fruits
+IDS_TITLE_TXT_0071	Accro aux Sorbets de fruits
+IDS_TITLE_TXT_0072	Accro aux Gâteaux glacés
+IDS_TITLE_TXT_0073	Accro au Punch de fruits
+IDS_TITLE_TXT_0074	Mangeur d'yeux d'Aibatts
+IDS_TITLE_TXT_0075	Carboniseur de Lawolf
+IDS_TITLE_TXT_0076	Marionnettiste
+IDS_TITLE_TXT_0077	Ebranleur de Glaphan
+IDS_TITLE_TXT_0078	Chasseur de Dragons
+IDS_TITLE_TXT_0079	Grand Voyageur
+IDS_TITLE_TXT_0080	Yéti Yétipa
+IDS_TITLE_TXT_0081	Yéti mon ami
+IDS_TITLE_TXT_0082	Immanquable
+IDS_TITLE_TXT_0083	Augu trop cuit
+IDS_TITLE_TXT_0084	Ghost Buster
+IDS_TITLE_TXT_0085	Poule Mouillée
+IDS_TITLE_TXT_0086	Fils des Âges Farouches
+IDS_TITLE_TXT_0087	Glace au Mammouth
+IDS_TITLE_TXT_0088	Rouge comme une écrevisse
+IDS_TITLE_TXT_0089	Grille Kraken
+IDS_TITLE_TXT_0090	Crepper Mayo
+IDS_TITLE_TXT_0091	Brouet de Naga
+IDS_TITLE_TXT_0092	Tueur Atrox
+IDS_TITLE_TXT_0093	Hydrophobe
+IDS_TITLE_TXT_0094	Minou Minou
+IDS_TITLE_TXT_0095	Feraille avec les Dorians
+IDS_TITLE_TXT_0096	Terreur des Mers
+IDS_TITLE_TXT_0097	Maître du temps
+IDS_TITLE_TXT_0098	Terreur des Dragons
+IDS_TITLE_TXT_0099	Maître des Sauts

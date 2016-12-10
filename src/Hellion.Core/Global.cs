@@ -14,6 +14,10 @@ namespace Hellion.Core
         public const int ClusterDefaultPort = 28000;
         public const int WorldDefaultPort = 14500;
 
+        public const string SingleLineComment = "//";
+        public const string MultiLineCommentStart = "/*";
+        public const string MultiLineCommentEnd = "*/";
+
         public static int GenerateRandomNumber()
         {
             return new Random().Next(0, int.MaxValue);

@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hellion.World.Systems.Map
 {
     public class Map
     {
+        private Thread thread;
+
         public string Name { get; private set; }
 
         public ICollection<WorldObject> Objects { get; private set; }
@@ -15,6 +18,9 @@ namespace Hellion.World.Systems.Map
         public Map()
         {
             this.Objects = new HashSet<WorldObject>();
+
+            this.thread = new Thread(this.Update);
+            //this.thread.Start();
         }
 
         public void Load(string mapPath)

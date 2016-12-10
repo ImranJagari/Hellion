@@ -1,0 +1,18 @@
+IDS_LORDSKILL_TXT_0000	Acclamation du Souverain
+IDS_LORDSKILL_TXT_0001	Augmente le taux d'EXP et de butin des personnages de 10%
+IDS_LORDSKILL_TXT_0002	Benediction du Souverain
+IDS_LORDSKILL_TXT_0003	Augmente la puissance d'attaque et la defense des personnages de 10% 
+IDS_LORDSKILL_TXT_0004	Bienveillance du Souverain
+IDS_LORDSKILL_TXT_0005	Augmente chaque statistique de 15
+IDS_LORDSKILL_TXT_0006	Hurlement du souverain
+IDS_LORDSKILL_TXT_0007	Change la couleur des hurlement du Souverain
+IDS_LORDSKILL_TXT_0008	Courroux du Souverain
+IDS_LORDSKILL_TXT_0009	Enleve l'usage de la parole a un personnage
+IDS_LORDSKILL_TXT_0010	Cri du Souverain
+IDS_LORDSKILL_TXT_0011	Autorise le Souverain à crier en texte couleur.
+IDS_LORDSKILL_TXT_0012	Convocation du Souverain
+IDS_LORDSKILL_TXT_0013	Invoque un personnage aux cotes du Souverain
+IDS_LORDSKILL_TXT_0014	Teleportation du Souverain
+IDS_LORDSKILL_TXT_0015	Teleporte le souverain aux cotes d'un personnage
+IDS_LORDSKILL_TXT_0016	Escorte du souverain
+IDS_LORDSKILL_TXT_0017	La duree des competences de groupe est augmentee de 400% (seulement si le souverain est le chef de groupe)
