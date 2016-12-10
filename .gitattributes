@@ -3,8 +3,8 @@
 ###############################################################################
 * text=auto
 *.cs     diff=csharp
-*.h      diff=text
-*.inc    diff=text
+*.h      text
+*.inc    text
 
 ###############################################################################
 # Set default behavior for command prompt diff.
